@@ -16,7 +16,7 @@ function fakeBrowser(store=new Map()) {
     setAttribute(k,v){this.attributes[k]=v;},
     querySelector(){return {focus(){}};}
   }]));
-  const covers=[{dataset:{cover:'ettore'},innerHTML:''},{dataset:{cover:'achille'},innerHTML:''}];
+  const covers=['ettore','achille','penelope','oggi'].map(cover=>({dataset:{cover},innerHTML:''}));
   const events={};
   const document={
     getElementById(id){if(!elements[id]) throw new Error('Missing element: '+id);return elements[id];},
@@ -103,4 +103,53 @@ test('il capitolo Ettore è esplorabile anche da tastiera',()=>{
   assert.ok(p.events.keydown,'gestore tastiera registrato');
   p.events.keydown({key:'ArrowRight',repeat:false,altKey:false,ctrlKey:false,metaKey:false});
   assert.match(p.elements.prologue.innerHTML,/Il difensore/);
+});
+
+
+test('Penelope e Ulisse: attesa, scelte e tre punti di vista fino alla conclusione',()=>{
+  const p=fakeBrowser();
+  p.action('start','penelope');
+  assert.match(p.elements.prologue.innerHTML,/Itaca senza il suo re/);
+  for(let i=0;i<4;i++)p.action('next');
+  assert.match(p.elements.panel.innerHTML,/Le famiglie chiedono aiuto/);
+  p.choice('fedeli');p.action('next');
+  p.choice('partire');p.action('next');
+  assert.match(p.elements.prologue.innerHTML,/Il ritorno di Ulisse/);
+  p.action('next');
+  assert.match(p.elements.prologue.innerHTML,/Tre persone, una casa/);
+  assert.match(p.elements.prologue.innerHTML,/0\/3 prospettive esplorate/);
+  p.role('penelope');p.role('telemaco');p.role('ulisse');
+  assert.match(p.elements.prologue.innerHTML,/3\/3 prospettive esplorate/);
+  p.action('next');
+  assert.match(p.elements.panel.innerHTML,/La casa è soltanto privata/);
+  p.choice('ordine');p.action('next');p.action('next');
+  assert.match(p.elements.panel.innerHTML,/Penelope, Telemaco e Ulisse/);
+  assert.match(p.elements.panel.innerHTML,/Le scelte che hai fatto/);
+});
+
+test('Destini generali: la chiusura resta collettiva anche nella vita particolare',()=>{
+  const p=fakeBrowser();
+  p.action('start','oggi');
+  assert.match(p.elements.prologue.innerHTML,/Il giorno dell’annuncio/);
+  for(let i=0;i<4;i++)p.action('next');
+  assert.match(p.elements.panel.innerHTML,/La notizia arriva a scuola/);
+  p.choice('scuola');p.action('next');
+  p.choice('partecipare');p.action('next');
+  p.choice('provare');p.action('next');
+  assert.match(p.elements.prologue.innerHTML,/Una notizia, tre vite/);
+  p.role('nadia');p.role('madre');p.role('quartiere');
+  p.action('next');
+  assert.match(p.elements.prologue.innerHTML,/Lo stesso evento. Due racconti/);
+  assert.match(p.elements.prologue.innerHTML,/0\/2 prospettive esplorate/);
+  p.action('next');
+  assert.match(p.elements.prologue.innerHTML,/Lo stesso evento. Due racconti/);
+  p.role('insieme');p.role('vicino');
+  assert.match(p.elements.prologue.innerHTML,/2\/2 prospettive esplorate/);
+  p.action('next');
+  assert.match(p.elements.panel.innerHTML,/Che cosa cambia nel racconto/);
+  p.choice('protagonista');p.action('next');
+  p.action('next');p.action('next');
+  assert.match(p.elements.panel.innerHTML,/Questi numeri rappresentano solo la simulazione/);
+  assert.match(p.elements.panel.innerHTML,/chiusura della fabbrica/);
+  assert.match(p.elements.panel.innerHTML,/Il costo:/);
 });
