@@ -142,7 +142,7 @@ async function finalAssessment(page){
   assert.equal(await page.locator('#vf-result').isVisible(),false);
   await page.locator('[data-vf-action="finish"]').click();
   assert.match(await page.locator('.vf-score').innerText(),/100/);
-  assert.match(await page.locator('#vf-result').innerText(),/non è un voto scolastico/);
+  assert.match(await page.locator('#vf-result').innerText(),/non un voto scolastico/);
   assert.equal(await page.locator('.vf-feedback').count(),5);
   assert.match(await page.locator('#vf-result').innerText(),/Ettore difende Troia/);
   await shot(page,'14-verifica-risultato');
