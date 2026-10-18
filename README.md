@@ -1,25 +1,39 @@
 # Epica e romanzo — dall'individuo alla comunità
 
-## Stato del prototipo (18 ottobre 2026)
+## Stato del percorso interattivo — 18 ottobre 2026
 
-**Il motore nuovo funziona nel ramo `base-feudo`, non ancora unito a `main`.** Non è più la schermata del feudo: `index.html` presenta Ettore e Achille, con la grafica recuperata da `sito-feudo`.
+**Quattro storie implementate sul ramo `base-feudo`, ancora in PR in bozza.** Il ramo principale (`main`) non è stato modificato.
 
-- `engine.js`: motore indipendente dal DOM, senza concetti feudali; scene narrative, scelte con variazioni 0–100, spiegazioni, salvataggi ricostruiti e riepilogo.
-- `storie.js`: **Ettore** (5 card introduttive, 3 turni, incontro con Andromaca/Astianatte, riflessione e conclusione) e **Achille** (storia più breve di controllo e didattica).
-- `epica-map.js`: illustrazioni SVG originali e mappa di Troia che cambia secondo Difesa, Provviste e Fiducia.
-- `epica-app.js`: collegamento browser, navigazione, salvataggio locale e feedback.
-- `stile.css` + `epica.css`: identità visiva del feudo, card di prologo, responsive.
-- `tests/*.test.cjs`: verifiche Node standard; `.github/workflows/engine-tests.yml` esegue test e controllo sintattico nella PR.
-- `legacy/feudo/`: copia archiviata dei vecchi moduli del feudo, **non caricati dalla nuova pagina**.
+| Capitolo | Forma | Che cosa si capisce |
+|---|---|---|
+| **Ettore** | Cinque card introduttive, tre turni, mappa viva di Troia, scena con Andromaca, tre ruoli | La decisione individuale coinvolge il destino della città e della famiglia |
+| **Achille e Patroclo** | Breve storia a scelta e confronto con la vicenda omerica | L'onore e l'amicizia diventano eventi pubblici |
+| **Penelope e Ulisse** | La tela, due decisioni immaginarie, il ritorno a Itaca, tre personaggi | La casa è anche un ordine collettivo |
+| **Destini generali — Nadia** | Tre turni contemporanei, tre punti di vista, due racconti dello stesso evento | Un destino comune può essere vissuto e narrato come vita particolare |
 
-**Per provarlo:** aprire `index.html` dal ramo o esporre i file con un server statico, per esempio `python3 -m http.server 8000`; selezionare Ettore o Achille, completare le card e verificare cambi di indicatori, riavvio e ripristino. Test automatici locali: `node --test tests/*.test.cjs` (Node 20+).
+L'introduzione «Chi merita una storia?» è stata **già svolta** e non viene ripetuta. Il confronto contemporaneo è una **rielaborazione didattica originale**, non una lettura sostitutiva dei testi di Mazzoni.
 
-**Limiti dichiarati:** simulatore di Ettore e storia breve di Achille implementati; Penelope/Ulisse e scenario contemporaneo restano da sviluppare. Il racconto è una rielaborazione didattica, le scelte sono controfattuali e gli indicatori non sono misure storiche né punteggi. **Non ancora collaudato su un telefono reale**; la PR resta in bozza.
+### Tecnologia riutilizzata
+
+- `engine.js`: motore indipendente dalla storia, valido per scene, decisioni, pannelli di prospettive, indicatori, feedback, riepiloghi e salvataggi.
+- `storie.js`: tutti gli episodi, i dialoghi didattici e i valori simulati.
+- `epica-map.js`: SVG originali per Troia, Itaca e il quartiere contemporaneo.
+- `epica-app.js`: interfaccia, navigazione e salvataggi locali, senza personaggi hardcoded.
+- `stile.css` + `epica.css`: visual design del feudo, carte narrative animate, responsive.
+- `legacy/feudo/`: codice vecchio archiviato per consultazione, non eseguito.
+
+### Verifiche e accesso
+
+- Test di motore, delle storie e dei percorsi in `tests/*.test.cjs`; eseguire `node --test tests/*.test.cjs` con Node recente.
+- Controllo browser reale automatizzato in Chrome e screenshot in `.github/workflows/browser-smoke.yml`.
+- **Da verificare manualmente**: iPhone reale, accessibilità e lettura effettiva con studenti. La PR rimane in bozza finché non c'è questa verifica.
+- Per prova locale: `python3 -m http.server 8000` dalla cartella del progetto e apertura di `http://localhost:8000`.
+
+La distinzione tra **racconto omerico** ed **esperimento controfattuale** è esplicita nella narrazione. Indicatori 0–100: metafore ludiche, non dati storici, non voti.
+
+Documenti di approfondimento: [Review Ettore](docs/ETTORE-REVIEW.md), [Destini generali e contemporaneità](docs/DESTINI-GENERALI.md), [Progetto narrativo](docs/STORIE-E-SIMULAZIONE.md), [Base tecnica](docs/BASE-TECNICA.md).
 
 ---
-
-
-Stato: **progetto didattico definito, applicazione da costruire**. Materiale di partenza: le 12 slide «L'epica — le vite che rappresentano un mondo» e il testo di lezione del docente.
 
 ## Obiettivo della prima unità
 
