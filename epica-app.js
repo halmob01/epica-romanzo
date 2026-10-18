@@ -35,6 +35,10 @@
     $('app').hidden = true;
     const saved=load();
     $('landing').hidden = false;
+    document.querySelectorAll('[data-cover]').forEach(el => {
+      const id = el.dataset.cover;
+      el.innerHTML = art.markup(id === 'achille' ? 'scelta' : 'troia', {}, id);
+    });
     $('continue').hidden = !saved;
     if(saved) $('continue').textContent='Continua: ' + saved.story.title;
     window.scrollTo?.(0,0);
@@ -124,7 +128,6 @@
     const isPreview=previewIndex!==null;
     const index=isPreview?previewIndex:session.index;
     const scene=story.scenes[index];
-    const nextScene=story.scenes[index+1];
     const canSkip=!isPreview && story.id==='ettore' && index<5;
     const endPreview=isPreview && index>=4;
     const label=isPreview?'Ripasso':scene.historical?'Racconto dell’Iliade':'Card introduttiva';
@@ -165,7 +168,7 @@
       $('panel').innerHTML=session.phase==='outcome'?renderOutcome():scene.type==='reflection'?renderReflection(scene):renderDecision(scene);
       $('panel').setAttribute('aria-live','polite');
     }
-    if(!(!$('prologue').hidden)) window.scrollTo?.(0,0);
+    if ($('prologue').hidden) window.scrollTo?.(0,0);
   }
 
   function next() {
