@@ -1,53 +1,81 @@
 <!doctype html>
 <html lang="it">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Base tecnica da adattare — Epica e romanzo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Public+Sans:wght@400;500;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="stile.css">
-<!-- Contatore visite (facoltativo): per attivarlo togli i commenti e metti il tuo codice GoatCounter.
-<script data-goatcounter="https://IL-TUO-CODICE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
--->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Epica — Le vite che rappresentano un mondo</title>
+  <meta name="description" content="Storie interattive sull'epica: scelte, destini personali e comunità.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Public+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="stile.css">
+  <link rel="stylesheet" href="epica.css">
 </head>
 <body>
-<div role="status" style="max-width:70rem;margin:.5rem auto 1rem;padding:.8rem 1rem;border:3px solid #c8102e;font:700 1rem/1.45 system-ui,sans-serif;color:#1c1416;background:#fbf7f2">BASE TECNICA COPIATA DAL FEUDO — Questo è ancora il gioco originale, non la lezione su Ettore. Il nuovo contenuto sarà sviluppato separatamente.</div>
-<div class="app" id="app">
-  <div class="bar">
-    <div class="sub" id="subtitle">476 d.C. · La fine del mondo</div>
-    <div class="bar-r">
-      <button class="pill" id="btnLang" data-notr>العربية</button>
-      <button class="pill" id="btnBack" disabled>← Indietro</button>
-      <div class="score"><b id="score">0</b><small>Punti</small></div>
-      <button class="pill" id="btnBoard">Docente</button>
+  <section id="landing" class="ep-landing" aria-label="Scegli una storia">
+    <div class="ep-mast">
+      <div class="ep-brand">EPICA / ROMANZO</div>
+      <span class="ep-kicker">Letteratura · Percorso interattivo</span>
     </div>
-  </div>
-  <div class="stage">
-    <div class="left">
-      <div class="mapwrap" id="mapwrap">
-        <canvas id="map" aria-label="Mappa del tuo feudo"></canvas>
-        <div class="chapter-tag" id="chTag"></div>
-        <div class="turn-tag" id="turnTag"></div>
-      </div>
-      <div class="hud" id="hud"></div>
-      <div class="progress" id="progress"></div>
+    <div>
+      <div class="ep-kicker">Lezione 01 · Il mondo degli eroi</div>
+      <h1 class="ep-display">LE VITE CHE RAPPRESENTANO UN MONDO</h1>
     </div>
-    <div class="panel" id="panel"></div>
-  </div>
-</div>
-<div id="winner" hidden></div>
-<div id="prologue" hidden></div>
+    <p class="ep-deck">Una decisione sembra personale. Ma può cambiare il destino di una città, una famiglia o un esercito? Scoprilo nelle storie degli eroi antichi.</p>
+    <button id="continue" class="btn ghost" data-action="continue" hidden>Continua la tua storia</button>
+    <div class="ep-story-grid">
+      <article class="ep-story-card">
+        <div class="ep-cover" data-cover="ettore"></div>
+        <div class="ep-story-body">
+          <span class="ep-kicker">01 · Simulazione principale</span>
+          <h2>ETTORE</h2>
+          <p>Una città sotto assedio. Ogni tua scelta cambia le difese, il cibo e la fiducia degli abitanti. Poi incontrerai Andromaca e Astianatte.</p>
+          <button class="btn" data-action="start" data-story="ettore">Entra a Troia →</button>
+        </div>
+      </article>
+      <article class="ep-story-card">
+        <div class="ep-cover" data-cover="achille"></div>
+        <div class="ep-story-body">
+          <span class="ep-kicker">02 · Storia breve</span>
+          <h2>ACHILLE</h2>
+          <p>Un'offesa personale, un esercito in difficoltà. Immagina una scelta e scopri come il destino dei compagni si lega a quello di Achille.</p>
+          <button class="btn" data-action="start" data-story="achille">Entra nel racconto →</button>
+        </div>
+      </article>
+    </div>
+    <p class="ep-story-note">Le decisioni alternative sono simulazioni didattiche, non episodi dell'Iliade. Le vicende narrate come fatti del poema sono riconoscibili nel percorso.</p>
+  </section>
 
-<!-- L'ordine conta: sono script classici che condividono le stesse variabili. -->
-<script src="config.js"></script>      <!-- valori da cambiare in ogni copia -->
-<script src="contenuti.js"></script>   <!-- la storia: misure, capitoli, quiz, eventi -->
-<script src="motore.js"></script>      <!-- regole del gioco, punteggio, codice del punteggio -->
-<script src="i18n.js"></script>        <!-- traduzione in arabo -->
-<script src="comune.js"></script>      <!-- stato e funzioni condivise dell'interfaccia -->
-<script src="mappa.js"></script>       <!-- mappa animata su canvas -->
-<script src="prologo.js"></script>     <!-- schede del prologo -->
-<script src="interfaccia.js"></script> <!-- pannelli, azioni, classifica, avvio -->
+  <main class="app" id="app" hidden>
+    <header class="bar">
+      <div class="ep-app-title">
+        <small id="headline">Le vite che rappresentano un mondo</small>
+        <b id="storyName">ETTORE</b>
+      </div>
+      <div class="bar-r">
+        <button class="pill" data-action="menu">← Storie</button>
+      </div>
+    </header>
+    <section class="stage ep-stage" aria-label="Simulazione narrativa">
+      <div class="left">
+        <div class="mapwrap">
+          <div class="ep-map" id="map" aria-live="off"></div>
+          <div class="chapter-tag" id="chapterTag">Simulazione</div>
+          <div class="turn-tag" id="turnTag">1/1</div>
+        </div>
+        <div class="ep-hud" id="hud" aria-label="Indicatori della storia"></div>
+        <div class="ep-progress" id="progress" aria-label="Progresso del percorso"></div>
+        <p class="ep-notice">Le misure servono a mostrare le conseguenze delle scelte; non sono dati storici e non sono un voto.</p>
+      </div>
+      <section class="panel ep-panel" id="panel" aria-label="Scena e decisione"></section>
+    </section>
+  </main>
+  <div id="prologue" hidden role="dialog" aria-label="Racconto illustrato" aria-modal="true"></div>
+
+  <script src="engine.js"></script>
+  <script src="storie.js"></script>
+  <script src="epica-map.js"></script>
+  <script src="epica-app.js"></script>
 </body>
 </html>
