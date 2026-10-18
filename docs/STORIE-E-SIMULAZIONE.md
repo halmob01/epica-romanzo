@@ -5,7 +5,7 @@
 
 ## Scopo
 
-Non ripetere l'introduzione «Chi merita una storia?», già svolta. Far **vivere** il rapporto fra decisione personale, ruolo sociale e destino comune. Poi confrontare come l'epica e la narrazione moderna rappresentano quel rapporto. L'obiettivo di lungo termine è preparare l'accesso alla «filosofia implicita» del romanzo secondo Guido Mazzoni, senza presentare un'opposizione assoluta e antistorica fra epica collettiva e romanzo individuale.
+Non ripetere l'introduzione «Chi merita una storia?», già svolta. Far **vivere** il rapporto fra decisione personale, ruolo sociale e destino comune. Poi confrontare come l'epica e la narrazione moderna rappresentano quel rapporto. L'obiettivo di lungo termine è riflettere su come cambiano le forme narrative, senza presentare un'opposizione assoluta fra epica collettiva e romanzo individuale.
 
 La domanda fissa dell'unità: «Quando il protagonista agisce, **che cosa cambia per lui e che cosa cambia per gli altri?**». La seconda domanda, più importante: «**Che ruolo o valore collettivo si vede attraverso di lui?**».
 
@@ -113,12 +113,12 @@ Non far leggere `Briseide` come un puro oggetto di gelosia romantica: nelle slid
 
 Possibili indicatori: `Prospettive personali`, `Legami`, `Forza dell'azione comune`. **Nessuna scelta è moralmente superiore per definizione**: il gioco non deve insinuare che partire sia egoista o che restare sia sempre buono. Anche oggi esistono destini collettivi.
 
-**Confronto finale guidato (Mazzoni):**
+**Confronto finale guidato:**
 1. Ettore sente il destino di Troia come parte inseparabile del proprio posto nella città. Nella storia contemporanea, la protagonista può scegliere come prendere posizione rispetto a una vicenda generale.
 2. Nell'epica, il protagonista incarna pubblicamente valori e ruoli della comunità; la narrazione moderna può concentrare l'attenzione sulla vita particolare, con progetti, esitazioni, condizioni sociali, conflitti.
 3. La differenza è nel **modo di rappresentare** la relazione tra individuo e mondo, non nell'asserzione che nel presente non esistano obblighi, solidarietà o conseguenze pubbliche.
 
-Non presentare questo capitolo come una parafrasi verificata di pagine specifiche dei saggi di Mazzoni: è una **rielaborazione didattica** orientata ai loro temi.
+Non presentare questo capitolo come una ricostruzione storica: è una **rielaborazione didattica** per confrontare diversi modi di raccontare.
 
 ## Esperienza visiva e tecnica
 
