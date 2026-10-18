@@ -10,6 +10,10 @@ on:
       - 'epica.css'
       - 'stile.css'
       - 'index.html'
+      - 'verifica.html'
+      - 'finale.js'
+      - 'verifica-app.js'
+      - 'verifica.css'
       - 'tests/visual-smoke.cjs'
       - '.github/workflows/browser-smoke.yml'
   pull_request:
@@ -21,6 +25,10 @@ on:
       - 'epica.css'
       - 'stile.css'
       - 'index.html'
+      - 'verifica.html'
+      - 'finale.js'
+      - 'verifica-app.js'
+      - 'verifica.css'
       - 'tests/visual-smoke.cjs'
       - '.github/workflows/browser-smoke.yml'
 jobs:
