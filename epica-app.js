@@ -93,9 +93,11 @@
 
   function storyMap() {
     const scene=engine.currentScene(story, session);
-    $('map').innerHTML=art.markup(scene?.art || 'troia',session.values,story.id);
+    // La mappa del simulatore resta sempre Troia: varia con le scelte anche se la card illustra un magazzino o le mura.
+    $('map').innerHTML=art.markup(story.id==='ettore'?'troia':(scene?.art || 'scelta'),session.values,story.id);
     $('hud').innerHTML=statusCard(story);
-    $('chapterTag').textContent=story.title + ' · Simulazione';
+    const kind=scene?.type==='decision'?'Scelta ipotetica':scene?.historical?'Racconto di Omero':'Riflessione';
+    $('chapterTag').textContent=story.title + ' · ' + kind;
     $('turnTag').textContent=`${session.index+1}/${story.scenes.length}`;
   }
 
@@ -151,7 +153,7 @@
       '<h3>Le misure finali</h3>'+
       '<p>Questi numeri descrivono solo la simulazione. Non sono un voto e non cambiano il racconto di Omero.</p>'+
       '<div class="ep-change-list">'+summary.values.map(x=>'<div class="ep-change"><span>'+esc(x.label)+'</span><b>'+x.before+' → '+x.after+'</b></div>').join('')+'</div>'+
-      '<div class="note"><b>La domanda da ricordare</b><p>Perché una decisione di Ettore può riguardare tutta Troia? E perché una decisione di Achille può riguardare tutti i Greci?</p></div>'+
+      '<div class="note"><b>La domanda da ricordare</b><p>'+esc(story.id==='ettore'?'Perché una decisione di Ettore riguarda anche Andromaca, Astianatte e gli abitanti di Troia?':'Perché una decisione di Achille riguarda anche tutti gli altri Greci?')+'</p></div>'+
       '<div class="row"><button class="btn" data-action="restart">Rigioca</button><button class="btn ghost" data-action="menu">Altre storie</button></div>';
   }
 
