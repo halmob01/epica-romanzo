@@ -17,7 +17,7 @@ const server=http.createServer((req,res)=>{
   res.setHeader('Content-Type',ext==='.js'?'application/javascript; charset=utf-8':ext==='.css'?'text/css; charset=utf-8':'text/html; charset=utf-8');
   res.end(fs.readFileSync(target));
 });
-const click=(page,action)=>page.locator('[data-action="'+action+'"]').last().click();
+const click=(page,action)=>page.locator('[data-action="'+action+'"]:visible').last().click();
 const choose=(page,id)=>page.locator('[data-choice="'+id+'"]').click();
 const selectRole=(page,id)=>page.locator('[data-role="'+id+'"]').click();
 async function next(page,n=1){for(let i=0;i<n;i++)await click(page,'next');}
