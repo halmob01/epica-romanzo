@@ -61,7 +61,7 @@
       source:'Trasferimento: due brevi testi originali',
       passageA:'«Il ponte rimase chiuso. Il paese perse la sua strada più rapida verso il mercato.»',
       passageB:'«Marta guardò l’autobus partire. Pensò che sarebbe arrivata tardi al colloquio.»',
-      prompt:'Che differenza c’è fra i due racconti?',
+      prompt:'Quale frase confronta meglio il punto di vista dei due racconti?',
       options:[
         {id:'soggetti',text:'Il primo descrive il paese; il secondo descrive Marta.'},
         {id:'momenti',text:'Il primo descrive il passato; il secondo mostra il futuro.'},
