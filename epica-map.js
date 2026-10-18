@@ -27,7 +27,7 @@
   function house(x,y,w=50) {
     return `<g stroke="${INK}" stroke-width="2.4" stroke-linejoin="round">
       <rect x="${x}" y="${y}" width="${w}" height="49" fill="#fff"/>
-      <path d="M${x-6} ${y}L${x+w/2} ${y-30}L${x+w+6} ${y}Z" fill="${RED}"/>
+      <rect x="${x-6}" y="${y-8}" width="${w+12}" height="10" fill="${RED}"/><path d="M${x+8} ${y-8}v-7m${w-17} 7v-7" stroke="${INK}" stroke-width="3"/>
       <rect x="${x+w/2-6}" y="${y+21}" width="12" height="28" fill="${INK}"/>
       <rect x="${x+8}" y="${y+10}" width="10" height="11" fill="#efd9b3"/>
     </g>`;
@@ -66,7 +66,7 @@
       ${arms}
       ${cracked?'<path data-feature="cracks" d="M9 182l18 13-7 19 29 20M377 181l-13 23 17 18-12 28" fill="none" stroke="#8e4844" stroke-width="6"/>':''}
       <g data-feature="supplies">${food}</g><g data-feature="citizens">${citizens}</g>
-      <g stroke="${INK}" stroke-width="2.5"><path d="M424 128V46"/><path d="M424 47H364V77H424Z" fill="${RED}"/></g>
+      <g stroke="${INK}" stroke-width="2.5"><path d="M424 128V46"/><g class="ep-svg-flag"><path d="M424 47H364V77H424Z" fill="${RED}"/></g></g>
       <g font-family="system-ui,sans-serif" font-weight="800" font-size="12">
         <rect x="11" y="14" width="94" height="24" fill="#ffffff" stroke="${INK}" stroke-width="2"/>
         <text x="19" y="31" fill="${INK}">DIFESA ${defense}</text>
@@ -79,7 +79,7 @@
   function household(helmetOff=false) {
     return `${sky(false)}
       <rect x="52" y="112" width="377" height="140" fill="#fff" stroke="${INK}" stroke-width="4"/>
-      <path d="M37 113L240 34L444 113Z" fill="${RED}" stroke="${INK}" stroke-width="4"/>
+      <rect x="42" y="95" width="397" height="18" fill="${RED}" stroke="${INK}" stroke-width="4"/><rect x="62" y="76" width="359" height="19" fill="#eee2d0" stroke="${INK}" stroke-width="3"/>
       <path d="M62 232H414" stroke="#d2b38d" stroke-width="9"/>
       <rect x="200" y="145" width="76" height="106" fill="#f1ddba" stroke="${INK}" stroke-width="3"/>
       ${figure(152,212,1.5,RED,!helmetOff)}
@@ -98,7 +98,7 @@
     const provisions=n(values.provviste,60), sacks=Math.max(0,Math.ceil(provisions/12));
     return `${sky(false)}
       <g stroke="${INK}" stroke-width="4"><rect x="56" y="89" width="368" height="149" fill="#f0e7d8"/>
-      <path d="M41 89L239 27L439 89Z" fill="${RED}"/>
+      <rect x="41" y="72" width="398" height="19" fill="${RED}"/>
       <rect x="82" y="111" width="319" height="116" fill="${PAPER}"/></g>
       <path d="M82 178H401" stroke="#9f8d7d" stroke-width="3"/>
       ${Array.from({length:sacks},(_,i)=>sack(116+(i%7)*42,i<7?173:224,1.15)).join('')}
