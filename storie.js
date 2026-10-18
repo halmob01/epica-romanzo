@@ -83,7 +83,12 @@
         art: 'scelta', historical: true },
       { id: 'ruoli', type: 'narrative', title: 'Una persona, tre legami',
         text: 'Ettore è marito, padre e difensore. Esplora tutti e tre i legami. Poi osserva perché una sua decisione può riguardare un’intera comunità.',
-        art: 'ruoli', interactive: 'roles', historical: false },
+        art: 'ruoli', interactive: 'roles', historical: false,
+        panels:[
+          {id:'marito',label:'MARITO',name:'Andromaca',text:'Andromaca teme di perdere Ettore. Il pericolo per Troia è anche un pericolo per la loro vita insieme.'},
+          {id:'padre',label:'PADRE',name:'Astianatte',text:'Astianatte potrebbe crescere senza padre. Difendere la città significa anche tentare di proteggere il futuro del figlio.'},
+          {id:'difensore',label:'DIFENSORE',name:'Troia',text:'Ettore difende anche le famiglie degli altri abitanti. Una sua decisione riguarda tutta la comunità.'}
+        ] },
       { id: 'interpretazione', type: 'reflection', title: 'Una vita, un destino comune',
         text: 'Quale frase spiega meglio perché la vicenda di Ettore è un esempio di epica?',
         art: 'troia', choices: [
