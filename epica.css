@@ -124,3 +124,17 @@ body { margin:0; min-height:100vh; }
 .vf-home-promo p{max-width:46rem;line-height:1.5}
 .vf-home-promo .vf-home-meta{font-weight:700;font-size:.86rem;color:var(--mute)}
 .vf-home-promo .btn{justify-self:start;display:inline-flex}
+
+/* Identità cromatica Epica / Romanzo: prugna e carta fredda, diversa dal rosso araldico del Feudo. */
+:root {
+  --ink:#211d2a;
+  --red:#76506f;
+  --red-dark:#563951;
+  --red-pale:#f2eaf1;
+  --paper:#f9f7fa;
+  --line:#e6dfe7;
+  --mute:#625b69;
+  --soft:#f2eef3;
+}
+.ep-stat:nth-child(2) .ep-meter > div {background:#b18b60;}
+.ep-stat:nth-child(3) .ep-meter > div {background:#62877e;}
