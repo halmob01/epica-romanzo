@@ -72,6 +72,19 @@ async function odyssey(page){
   await next(page);await choose(page,'ordine');await click(page,'next');await next(page);
   assert.match(await page.locator('#panel').innerText(),/Le scelte che hai fatto/);
 }
+async function achilles(page){
+  await page.goto('http://127.0.0.1:4173/');
+  await start(page,'achille');
+  await next(page,2);
+  await choose(page,'armatura');
+  await click(page,'next');
+  await next(page);
+  await choose(page,'onore');
+  await click(page,'next');
+  await next(page);
+  assert.match(await page.locator('#panel').innerText(),/Le scelte che hai fatto/);
+  await shot(page,'10-achille-finale');
+}
 async function today(page){
   await page.goto('http://127.0.0.1:4173/');
   await start(page,'oggi');
@@ -96,12 +109,18 @@ async function today(page){
     browser=await chromium.launch({executablePath:process.env.CHROME_BIN,headless:true,args:['--no-sandbox']});
     const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});
     const errors=[];page.on('pageerror',err=>errors.push(err.message));
-    await hector(page);await odyssey(page);await today(page);
+    await hector(page);await achilles(page);await odyssey(page);await today(page);
     assert.deepEqual(errors,[],'errori JavaScript dal browser');
     await page.setViewportSize({width:1280,height:800});
     await page.goto('http://127.0.0.1:4173/');
     await assertFits(page,'desktop');
     await shot(page,'09-home-desktop');
-    console.log('Chromium smoke: 3 storie complete, mobile e desktop, 9 anteprime.');
+    await page.setViewportSize({width:320,height:700});
+    await page.goto('http://127.0.0.1:4173/');
+    await assertFits(page,'telefono stretto 320px');
+    await start(page,'oggi');
+    await assertFits(page,'card strette 320px');
+    await shot(page,'11-telefono-stretto');
+    console.log('Chromium smoke: 4 storie complete, 320/390px e desktop, 11 anteprime.');
   } finally {if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(e=>{console.error(e);process.exitCode=1;});
