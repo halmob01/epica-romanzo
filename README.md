@@ -11,7 +11,7 @@
 | **Penelope e Ulisse** | La tela, due decisioni immaginarie, il ritorno a Itaca, tre personaggi | La casa è anche un ordine collettivo |
 | **Destini generali — Nadia** | Tre turni contemporanei, tre punti di vista, due racconti dello stesso evento | Un destino comune può essere vissuto e narrato come vita particolare |
 
-L'introduzione «Chi merita una storia?» è stata **già svolta** e non viene ripetuta. Il confronto contemporaneo è una **rielaborazione didattica originale**, non una lettura sostitutiva dei testi di Mazzoni.
+L'introduzione «Chi merita una storia?» è stata **già svolta** e non viene ripetuta. Il confronto contemporaneo è una **rielaborazione didattica originale**, non una ricostruzione storica o letteraria.
 
 ### Tecnologia riutilizzata
 
@@ -49,7 +49,7 @@ Componenti tecnici separati: `finale.js` (dati, regole e correzione), `verifica-
 
 ## Obiettivo della prima unità
 
-Capire che nell'epica la vicenda di un individuo non è soltanto privata: i suoi gesti incarnano ruoli, valori e conflitti della comunità. Preparare il successivo confronto con la centralità della vita particolare nel romanzo moderno e con la filosofia implicita del romanzo studiata attraverso Guido Mazzoni.
+Capire che nell'epica la vicenda di un individuo non è soltanto privata: i suoi gesti incarnano ruoli, valori e conflitti della comunità. Preparare il successivo confronto con la centralità della vita particolare nel romanzo moderno.
 
 L'introduzione «Chi merita una storia?» è **già stata svolta**: non va ripetuta.
 
@@ -58,7 +58,7 @@ L'introduzione «Chi merita una storia?» è **già stata svolta**: non va ripet
 
 ## Nuova direzione: storie a scelte con conseguenze
 
-Il formato approvato non è una sequenza di quiz: prima **card introduttive illustrate e animate** come nel prologo di sito-feudo; poi **simulazioni a scelte**, con indicatori che si modificano e spiegazioni dei costi per la comunità. **Ettore è la simulazione principale**, con mappa di Troia e indicatori Difesa / Provviste / Fiducia. Seguono storie diverse di Achille e Patroclo, Penelope e Ulisse; in conclusione una simulazione contemporanea sui destini collettivi e il confronto verso Mazzoni.
+Il formato approvato non è una sequenza di quiz: prima **card introduttive illustrate e animate** come nel prologo di sito-feudo; poi **simulazioni a scelte**, con indicatori che si modificano e spiegazioni dei costi per la comunità. **Ettore è la simulazione principale**, con mappa di Troia e indicatori Difesa / Provviste / Fiducia. Seguono storie diverse di Achille e Patroclo, Penelope e Ulisse; in conclusione una simulazione contemporanea sui destini collettivi e il confronto con la narrazione contemporanea.
 
 Specifiche complete, turni, scelte, feedback e vincoli di fedeltà al testo: [docs/STORIE-E-SIMULAZIONE.md](docs/STORIE-E-SIMULAZIONE.md).
 
