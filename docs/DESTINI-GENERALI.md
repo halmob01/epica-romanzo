@@ -1,6 +1,6 @@
 # Destini generali — Epica e contemporaneità
 
-**Stato:** capitolo finale implementato nel ramo `base-feudo` di `epica-romanzo`. Questa è una **proposta didattica** orientata alle domande sul romanzo e su Guido Mazzoni, non una trascrizione né una parafrasi puntuale di `Teoria del romanzo` o `I destini generali`.
+**Stato:** capitolo finale implementato nel ramo `base-feudo` di `epica-romanzo`. Questa è una **proposta didattica** orientata al confronto fra narrazione epica e contemporanea, senza attribuire le scene inventate a fonti letterarie.
 
 ## Scopo
 
@@ -55,15 +55,15 @@ Entrambi i testi sono **originali**, scritti per la lezione, e parlano dello ste
 
 L'interfaccia fa selezionare e leggere entrambe le prospettive prima della domanda interpretativa. Il feedback spiega perché seguire una vita particolare non significa negare un destino collettivo.
 
-## Il passaggio al romanzo e a Mazzoni
+## Il passaggio alla narrazione contemporanea
 
 Formula accessibile da proporre **dopo le esperienze**, non all'inizio:
 
 > Nella storia di Ettore vediamo una persona che incarna il destino della città. Nella storia di Nadia vediamo una persona comune che prova a costruire la propria vita dentro una trasformazione che riguarda molti. La differenza non è che una vicenda sia collettiva e l'altra no. È anche **come il racconto ci fa guardare quella vicenda**.
 
-L'obiettivo della lezione successiva è verificare, con testi letterari e con le opere di Mazzoni come riferimento esplicito, che cosa accade quando la singolarità delle vite diventa oggetto centrale della narrazione.
+L'obiettivo della lezione successiva è verificare, attraverso testi letterari, che cosa accade quando la singolarità delle vite diventa oggetto centrale della narrazione.
 
-Non attribuire a Mazzoni gli esempi inventati o le formulazioni semplificate. Le sue tesi richiedono lettura e confronto con le fonti.
+Gli esempi inventati e le formulazioni semplificate non sostituiscono la lettura dei testi letterari.
 
 ## Guida per una discussione di 15–20 minuti dopo il gioco
 
