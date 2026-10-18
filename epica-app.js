@@ -12,20 +12,17 @@
   let previewIndex = null;
   let roleSelection = null;
   let roleSeen = new Set();
-  const ROLES = [
-    { id:'marito', title:'MARITO', name:'Andromaca', text:'Andromaca teme di perdere Ettore. Il pericolo per Troia è anche un pericolo per la loro vita insieme.' },
-    { id:'padre', title:'PADRE', name:'Astianatte', text:'Astianatte potrebbe crescere senza padre. Difendere la città significa anche tentare di proteggere il futuro del figlio.' },
-    { id:'difensore', title:'DIFENSORE', name:'Troia', text:'Ettore difende anche le famiglie degli altri abitanti. Una sua decisione riguarda tutta la comunità.' }
-  ];
-  function rolePanel() {
-    const chosen=ROLES.find(x=>x.id===roleSelection);
-    return '<div class="ep-roles" aria-label="I tre ruoli di Ettore">' +
-      ROLES.map(x=>'<button type="button" class="ep-role '+(x.id===roleSelection?'selected':'')+'" data-role="'+x.id+'" aria-pressed="'+(x.id===roleSelection)+'">' +
-      '<strong>'+x.title+'</strong><small>'+x.name+'</small>' +
+  function panelsFor(scene) { return scene.panels || []; }
+  function rolePanel(scene) {
+    const panels=panelsFor(scene);
+    const chosen=panels.find(x=>x.id===roleSelection);
+    return '<div class="ep-roles" aria-label="Esplora i punti di vista">' +
+      panels.map(x=>'<button type="button" class="ep-role '+(x.id===roleSelection?'selected':'')+'" data-role="'+esc(x.id)+'" aria-pressed="'+(x.id===roleSelection)+'">' +
+      '<strong>'+esc(x.label||x.title)+'</strong><small>'+esc(x.name)+'</small>' +
       (roleSeen.has(x.id)?'<span class="ep-visited" aria-label="esplorato">✓</span>':'')+'</button>').join('') +
       '</div><div class="ep-role-explanation" role="status">'+
-      (chosen?'<strong>'+esc(chosen.name)+'</strong><p>'+esc(chosen.text)+'</p>':'<p>Seleziona un ruolo per scoprire chi è coinvolto nella vita di Ettore.</p>')+
-      '</div><p class="ep-roles-progress">'+roleSeen.size+'/3 legami esplorati. '+(roleSeen.size===3?'Ora puoi proseguire.':'Scoprili tutti per continuare.')+'</p>';
+      (chosen?'<strong>'+esc(chosen.name)+'</strong><p>'+esc(chosen.text)+'</p>':'<p>Seleziona le diverse prospettive e scopri che cosa cambia.</p>')+
+      '</div><p class="ep-roles-progress">'+roleSeen.size+'/'+panels.length+' '+(scene.interactive==='roles'?'legami esplorati. ':'prospettive esplorate. ')+(roleSeen.size===panels.length?'Ora puoi proseguire.':'Esplorale tutte per continuare.')+'</p>';
   }
 
   function save() {
@@ -54,7 +51,7 @@
     $('landing').hidden = false;
     document.querySelectorAll('[data-cover]').forEach(el => {
       const id = el.dataset.cover;
-      el.innerHTML = art.markup(id === 'achille' ? 'scelta' : 'troia', {}, id);
+      el.innerHTML = art.markup(stories[id]?.coverArt || (id==='achille'?'scelta':'troia'), {}, id);
     });
     $('continue').hidden = !saved;
     if(saved) $('continue').textContent='Continua: ' + saved.story.title;
@@ -94,7 +91,7 @@
   function storyMap() {
     const scene=engine.currentScene(story, session);
     // La mappa del simulatore resta sempre Troia: varia con le scelte anche se la card illustra un magazzino o le mura.
-    $('map').innerHTML=art.markup(story.id==='ettore'?'troia':(scene?.art || 'scelta'),session.values,story.id);
+    $('map').innerHTML=art.markup(story.id==='ettore'?'troia':story.id==='penelope'?'itaca':(scene?.art || 'scelta'),session.values,story.id);
     $('hud').innerHTML=statusCard(story);
     const kind=scene?.type==='decision'?'Scelta ipotetica':scene?.historical?'Racconto di Omero':'Riflessione';
     $('chapterTag').textContent=story.title + ' · ' + kind;
@@ -151,9 +148,9 @@
       '<h3>Le scelte che hai fatto</h3>'+
       '<div class="ep-episode-list">'+episodesHTML+'</div>'+
       '<h3>Le misure finali</h3>'+
-      '<p>Questi numeri descrivono solo la simulazione. Non sono un voto e non cambiano il racconto di Omero.</p>'+
+      '<p>'+esc(story.id==='oggi'?'Questi numeri rappresentano solo la simulazione: non sono un voto e non descrivono dati reali.':'Questi numeri descrivono solo la simulazione. Non sono un voto e non cambiano il racconto di Omero.')+'</p>'+
       '<div class="ep-change-list">'+summary.values.map(x=>'<div class="ep-change"><span>'+esc(x.label)+'</span><b>'+x.before+' → '+x.after+'</b></div>').join('')+'</div>'+
-      '<div class="note"><b>La domanda da ricordare</b><p>'+esc(story.id==='ettore'?'Perché una decisione di Ettore riguarda anche Andromaca, Astianatte e gli abitanti di Troia?':'Perché una decisione di Achille riguarda anche tutti gli altri Greci?')+'</p></div>'+
+      '<div class="note"><b>La domanda da ricordare</b><p>'+esc(story.question || (story.id==='ettore'?'Perché una decisione di Ettore riguarda anche Andromaca, Astianatte e gli abitanti di Troia?':'Perché una decisione di Achille riguarda anche tutti gli altri Greci?'))+'</p></div>'+
       '<div class="row"><button class="btn" data-action="restart">Rigioca</button><button class="btn ghost" data-action="menu">Altre storie</button></div>';
   }
 
@@ -163,8 +160,9 @@
     const scene=story.scenes[index];
     const canSkip=!isPreview && story.id==='ettore' && index<5;
     const endPreview=isPreview && index>=4;
-    const isRoleScene = !isPreview && scene.interactive === 'roles';
-    const label=isPreview?'Ripasso':isRoleScene?'Esplora i legami':scene.historical?'Racconto dell’Iliade':'Card introduttiva';
+    const isRoleScene = !isPreview && (scene.interactive === 'roles' || scene.interactive === 'views');
+    const panelsCount = isRoleScene ? panelsFor(scene).length : 0;
+    const label=isPreview?'Ripasso':isRoleScene?'Esplora i legami':scene.historical?(story.id==='penelope'?'Racconto dell’Odissea':'Racconto dell’Iliade'):(story.id==='oggi'?'Una storia di oggi':'Card introduttiva');
     $('prologue').hidden=false;
     $('prologue').innerHTML=`<div class="pro-card">
       <div class="pro-art pro-in">${art.markup(scene.art,session.values,story.id,{role:isRoleScene?roleSelection:null})}</div>
@@ -172,9 +170,9 @@
         <div class="pro-top"><div class="eyebrow">${esc(label)} · ${index+1}/${story.scenes.length}</div><button class="pill" data-action="menu">Esci</button></div>
         <h2 class="pro-title">${esc(scene.title)}</h2>
         <p class="pro-text">${esc(scene.text)}</p>
-        ${isRoleScene?rolePanel():''}
+        ${isRoleScene?rolePanel(scene):''}
         <div class="pro-dots">${story.scenes.map((_,i)=>`<i class="${i<index?'done':i===index?'now':''}"></i>`).join('')}</div>
-        <div class="row"><button class="btn" data-action="${isPreview?(endPreview?'close-preview':'preview-next'):'next'}" ${isRoleScene && roleSeen.size<3?'disabled aria-disabled="true"':''}>${isPreview&&endPreview?'Torna alla scelta':'Avanti →'}</button>
+        <div class="row"><button class="btn" data-action="${isPreview?(endPreview?'close-preview':'preview-next'):'next'}" ${isRoleScene && roleSeen.size<panelsCount?'disabled aria-disabled="true"':''}>${isPreview&&endPreview?'Torna alla scelta':'Avanti →'}</button>
           ${canSkip?'<button class="btn ghost" data-action="skip">Salta il prologo</button>':''}
           ${isPreview?'<button class="btn ghost" data-action="close-preview">Chiudi il ripasso</button>':''}
         </div>
@@ -208,7 +206,8 @@
 
   function next() {
     if(!session || previewIndex !== null) return;
-    if (engine.currentScene(story,session)?.interactive === 'roles' && roleSeen.size < 3) return;
+    const current=engine.currentScene(story,session);
+    if (['roles','views'].includes(current?.interactive) && roleSeen.size < panelsFor(current).length) return;
     try { session=engine.advance(story,session);roleSelection=null;roleSeen=new Set();save();render(); }
     catch (error) { console.warn(error); }
   }
@@ -223,7 +222,8 @@
   document.addEventListener('click',event=>{
     const role=event.target.closest('[data-role]');
     if(role && story && session && session.phase==='scene' && previewIndex===null &&
-        engine.currentScene(story,session)?.interactive==='roles') {
+        ['roles','views'].includes(engine.currentScene(story,session)?.interactive) &&
+        panelsFor(engine.currentScene(story,session)).some(x=>x.id===role.dataset.role)) {
       roleSelection=role.dataset.role;
       roleSeen.add(roleSelection);
       renderPrologue();

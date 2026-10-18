@@ -106,3 +106,14 @@ body { margin:0; min-height:100vh; }
 .ep-svg-flag { transform-box:fill-box;transform-origin:100% 50%;animation:ep-banner 3.2s ease-in-out infinite; }
 @keyframes ep-banner { 0%,100% {transform:skewY(0deg) scaleX(1)} 50% {transform:skewY(-3deg) scaleX(.92)} }
 @media (prefers-reduced-motion:reduce) { .ep-svg-flag {animation:none} }
+
+/* Evita che intestazioni e titoli editoriali spingano la pagina oltre il viewport mobile. */
+.ep-mast { flex-wrap:wrap; }
+.ep-mast > * { min-width:0; }
+.ep-display { overflow-wrap:anywhere; hyphens:auto; }
+.ep-story-card, .ep-story-body { min-width:0; }
+@media (max-width:45rem) {
+  .ep-mast { align-items:flex-start; row-gap:.4rem; }
+  .ep-brand { font-size:1.25rem; }
+  .ep-mast .ep-kicker { font-size:.7rem; letter-spacing:.08em; overflow-wrap:anywhere; }
+}
