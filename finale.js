@@ -63,7 +63,7 @@
       passageB:'«Marta guardò l’autobus partire. Pensò che sarebbe arrivata tardi al colloquio.»',
       prompt:'Che differenza c’è fra i due racconti?',
       options:[
-        {id:'soggetti',text:'Il primo guarda il paese; il secondo segue Marta.'},
+        {id:'soggetti',text:'Il primo descrive il paese; il secondo descrive Marta.'},
         {id:'momenti',text:'Il primo descrive il passato; il secondo mostra il futuro.'},
         {id:'cause',text:'Il primo mostra un problema; il secondo trova la soluzione.'}
       ],
