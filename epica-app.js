@@ -158,7 +158,7 @@
         <p class="pro-text">${esc(scene.text)}</p>
         ${isRoleScene?rolePanel():''}
         <div class="pro-dots">${story.scenes.map((_,i)=>`<i class="${i<index?'done':i===index?'now':''}"></i>`).join('')}</div>
-        <div class="row"><button class="btn" data-action="${isPreview?(endPreview?'close-preview':'preview-next'):'next'}">${isPreview&&endPreview?'Torna alla scelta':'Avanti →'}</button>
+        <div class="row"><button class="btn" data-action="${isPreview?(endPreview?'close-preview':'preview-next'):'next'}" ${isRoleScene && roleSeen.size<3?'disabled aria-disabled="true"':''}>${isPreview&&endPreview?'Torna alla scelta':'Avanti →'}</button>
           ${canSkip?'<button class="btn ghost" data-action="skip">Salta il prologo</button>':''}
           ${isPreview?'<button class="btn ghost" data-action="close-preview">Chiudi il ripasso</button>':''}
         </div>
