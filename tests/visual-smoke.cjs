@@ -155,6 +155,25 @@ async function finalAssessment(page){
   await assertFits(page,'verifica prima domanda 320px');
   await shot(page,'15-verifica-320');
   await page.setViewportSize({width:390,height:844});
+  // Verifica le posizioni effettivamente disegnate: non basta esaminare il sorgente.
+  const positions=new Set();
+  for(let seed=0;seed<12;seed++){
+    await page.evaluate(seed=>{
+      const key='epica-romanzo-verifica-finale-v1';
+      const current=JSON.parse(localStorage.getItem(key));
+      current.seed=seed;current.index=3;current.submitted=false;current.answers={};
+      localStorage.setItem(key,JSON.stringify(current));
+    },seed);
+    await page.reload();
+    const shown=await page.locator('.vf-option').evaluateAll(nodes=>nodes.map(n=>n.dataset.vfChoice));
+    if(seed===0){
+      await page.reload();
+      const again=await page.locator('.vf-option').evaluateAll(nodes=>nodes.map(n=>n.dataset.vfChoice));
+      assert.deepEqual(shown,again,'posizione stabile al nuovo render');
+    }
+    positions.add(shown.indexOf('soggetti'));
+  }
+  assert.ok(positions.size>=2,'la corretta non cambia posizione a video');
 }
 (async()=>{
   await new Promise(resolve=>server.listen(4173,'127.0.0.1',resolve));
