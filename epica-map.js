@@ -137,10 +137,133 @@
       <text x="242" y="196" font-weight="800" font-size="12" font-family="system-ui,sans-serif" fill="${RED}" text-anchor="middle">ETTORE</text>
       ${targets.map(node).join('')}`;
   }
+function woman(x,y,scale=1,color='#576d86') {
+  return `<g transform="translate(${x} ${y}) scale(${scale})" stroke="#1c1416" stroke-width="2.5" stroke-linecap="round">
+    <path d="M-7 8L-12 32M7 8L12 32M-8 -25L-19 0M8 -25L19 0" fill="none"/>
+    <path d="M-12 -27H12L17 10H-17Z" fill="${color}"/>
+    <path d="M-11 -48Q0 -64 12 -48L15 -32H-14Z" fill="#352d2c"/>
+    <circle cy="-43" r="10" fill="#f0c9a9"/></g>`;
+}
+
+function cityItaca(values={}) {
+  const supply=Math.max(1,Math.ceil(n(values.casa,58)/17));
+  const loyal=Math.max(1,Math.ceil(n(values.sostegno,48)/17));
+  const time=n(values.tempo,35);
+  return sky(false)+`<path d="M0 195Q80 185 180 193T480 188V270H0Z" fill="#d5c2a6"/>
+    <g stroke="${INK}" stroke-width="3.5"><rect x="77" y="77" width="322" height="142" fill="#f4e8d6"/>
+      <path d="M63 79H413V96H63Z" fill="${RED}"/>
+      <rect x="102" y="112" width="42" height="105" fill="#e0c4a1"/>
+      <rect x="329" y="112" width="42" height="105" fill="#e0c4a1"/>
+      <rect x="201" y="128" width="75" height="90" fill="#9a7357"/>
+      <path d="M239 128V215M93 105H392" stroke="${INK}" stroke-width="2"/></g>
+    <g data-feature="loyal-servants">${Array.from({length:loyal},(_,i)=>woman(115+i*33,246,.46,i%2?BLUE:RED)).join('')}</g>
+    <g data-feature="stores">${Array.from({length:supply},(_,i)=>sack(325+i*20,250,.63)).join('')}</g>
+    <g><rect x="21" y="18" width="128" height="27" fill="#fff" stroke="${INK}" stroke-width="2"/>
+      <text x="30" y="36" font-size="12" font-weight="800" font-family="system-ui" fill="${INK}">ATTESA ${time}</text></g>`;
+}
+
+function itacaDetail(art,values={},role=null) {
+  if(art==='legami-itaca'){
+    const pts=[{id:'penelope',label:'PENELOPE',x:89,y:100},{id:'telemaco',label:'TELEMACO',x:244,y:100},{id:'ulisse',label:'ULISSE',x:398,y:100}];
+    return sky(false)+`<path d="M0 226H480" stroke="${INK}" stroke-width="4"/>`+
+      pts.map((p,i)=>`<g data-view="${p.id}" opacity="${role&&role!==p.id?.25:1}">
+        <rect x="${p.x-64}" y="60" width="128" height="165" fill="${role===p.id?'#f9e0e3':'#fff'}" stroke="${role===p.id?RED:INK}" stroke-width="${role===p.id?5:3}"/>
+        ${i===0?woman(p.x,174,1.36,BLUE):figure(p.x,174,1.28,i===1?BLUE:RED,i===2)}
+        <text x="${p.x}" y="203" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="12" fill="${INK}">${p.label}</text>
+      </g>`).join('')+
+      `<path d="M152 132H180M308 132H334" stroke="${INK}" stroke-width="3" stroke-dasharray="5 6"/>`;
+  }
+  if(art==='tela'){
+    const threads=Array.from({length:17},(_,i)=>`<line x1="${125+i*14}" y1="103" x2="${125+i*14}" y2="233" stroke="#d5bfa3" stroke-width="2"/>`).join('');
+    const woven=Array.from({length:Math.ceil(n(values.tempo,35)/9)},(_,i)=>`<line x1="120" y1="${124+i*11}" x2="353" y2="${124+i*11}" stroke="${i%2?RED:BLUE}" stroke-width="5" opacity=".85"/>`).join('');
+    return sky(false)+`<rect x="79" y="48" width="315" height="210" fill="#fbf6ec" stroke="${INK}" stroke-width="4"/>
+      <rect x="115" y="82" width="246" height="168" fill="#efe8d7" stroke="${INK}" stroke-width="4"/>${threads}${woven}
+      ${woman(72,219,1.1,BLUE)}
+      <path d="M81 199L120 169" stroke="${INK}" stroke-width="3"/>`;
+  }
+  if(art==='proci'){
+    return cityItaca(values)+Array.from({length:4},(_,i)=>figure(135+i*59,240,.83,i%2?'#7b6a57':BLUE,false)).join('')+
+      `<rect x="171" y="227" width="131" height="13" fill="#d0ae7d" stroke="${INK}" stroke-width="2"/>`;
+  }
+  if(art==='nave'){
+    return sky(false)+`<rect y="190" width="480" height="80" fill="#b8ced1"/>
+      <path d="M25 215Q110 199 200 214T480 208" fill="none" stroke="#fff" stroke-width="3"/>
+      <path d="M115 176H393L359 219H149Z" fill="#805b48" stroke="${INK}" stroke-width="4"/>
+      <path d="M242 175V61" stroke="${INK}" stroke-width="5"/>
+      <path d="M238 67V171H156Z" fill="#fff" stroke="${INK}" stroke-width="3"/>
+      <path d="M250 77V169H326Z" fill="${RED}" stroke="${INK}" stroke-width="3"/>
+      ${figure(220,182,.7,RED)}
+      <path d="M401 181L451 160L479 177" fill="#d6c5ac" stroke="${INK}" stroke-width="3"/>`;
+  }
+  return cityItaca(values);
+}
+
+function modernPerson(x,y,scale=1,color=RED) {
+  return `<g transform="translate(${x} ${y}) scale(${scale})" stroke="${INK}" stroke-width="2.5" stroke-linecap="round">
+    <path d="M-10 10L-12 38M9 10L12 38M-11 -27L-21 2M11 -27L21 2" fill="none"/>
+    <path d="M-13 -29H13V13H-13Z" fill="${color}"/>
+    <circle cy="-42" r="10.5" fill="#efc7a7"/>
+    <path d="M-12 -48Q-2 -62 12 -50L9 -52Q-1 -46 -12 -48" fill="${INK}"/></g>`;
+}
+
+function modernScene(art,values={},role=null) {
+  const future=n(values.futuro,45), links=n(values.legami,60), together=n(values.insieme,38);
+  const school=art==='ragazza', bus=art==='autobus', split=art==='due-sguardi';
+  const factory=sky(false)+`<g stroke="${INK}" stroke-width="3">
+      <rect x="45" y="97" width="390" height="146" fill="#e8ded2"/>
+      <path d="M45 99L102 78L102 99L162 78L162 99L223 78L223 99H435" fill="#b7a99c"/>
+      <rect x="318" y="41" width="41" height="58" fill="#d8cabc"/><rect x="369" y="26" width="33" height="73" fill="#d8cabc"/>
+      <rect x="176" y="147" width="110" height="96" fill="${INK}"/>
+      <path d="M193 161H267M193 175H267M193 189H267M193 203H267" stroke="#b8aaa0" stroke-width="3"/>
+      <rect x="66" y="124" width="83" height="40" fill="#fff"/>
+      <text x="107" y="150" text-anchor="middle" font-size="14" font-family="system-ui,sans-serif" font-weight="800" fill="${RED}">CHIUSA</text></g>
+      <path d="M0 243H480" stroke="${INK}" stroke-width="4"/>`;
+  const crowd=Array.from({length:Math.max(1,Math.ceil(together/20))},(_,i)=>modernPerson(40+i*51,239,.5,i%2?BLUE:RED)).join('');
+  if(art==='fabbrica')return factory+`<g data-feature="community">${crowd}</g>`;
+  if(art==='quartiere')return sky(false)+
+    [42,177,315].map((x,i)=>`<g stroke="${INK}" stroke-width="3"><rect x="${x}" y="${68+i%2*16}" width="112" height="167" fill="#efe8dc"/>
+      <rect x="${x-5}" y="${64+i%2*16}" width="122" height="12" fill="${i===1?RED:BLUE}"/>
+      ${[0,1,2].map(k=>`<rect x="${x+13+k*32}" y="${97+i%2*16}" width="19" height="25" fill="#bbced0"/>
+      <rect x="${x+13+k*32}" y="${140+i%2*16}" width="19" height="25" fill="#bbced0"/>`).join('')}
+      <rect x="${x+45}" y="190" width="29" height="45" fill="${INK}"/></g>`).join('')+
+    `<path d="M0 237H480" stroke="${INK}" stroke-width="4"/><g data-feature="community">${crowd}</g>`;
+  if(school)return sky(false)+`<rect x="20" y="112" width="440" height="116" fill="#e4d8c9" stroke="${INK}" stroke-width="4"/>
+    <rect x="37" y="105" width="406" height="10" fill="${RED}"/>
+    <rect x="60" y="133" width="100" height="69" fill="#fff" stroke="${INK}" stroke-width="3"/>
+    <text x="110" y="169" text-anchor="middle" font-size="13" font-family="system-ui" font-weight="800" fill="${INK}">SCUOLA</text>
+    ${modernPerson(303,215,1.4,RED)}
+    <path d="M332 205Q360 195 375 205V230H335Z" fill="${BLUE}" stroke="${INK}" stroke-width="3"/>
+    <path d="M311 87Q355 54 397 85V112H311Z" fill="#fff" stroke="${INK}" stroke-width="2"/>
+    <text x="353" y="103" text-anchor="middle" font-size="12" font-weight="800" fill="${RED}" font-family="system-ui">DOMANI?</text>`;
+  if(bus)return sky(false)+`<path d="M0 235H480" stroke="${INK}" stroke-width="5"/>
+    <rect x="49" y="113" width="331" height="113" rx="9" fill="#e5b54e" stroke="${INK}" stroke-width="4"/>
+    ${Array.from({length:4},(_,i)=>`<rect x="${68+i*73}" y="134" width="63" height="51" fill="#bfd0d1" stroke="${INK}" stroke-width="2.5"/>`).join('')}
+    <circle cx="120" cy="226" r="23" fill="${INK}"/><circle cx="313" cy="226" r="23" fill="${INK}"/>
+    <circle cx="120" cy="226" r="11" fill="#fff"/><circle cx="313" cy="226" r="11" fill="#fff"/>
+    <path d="M408 223V84M394 84H448V109H394Z" fill="#fff" stroke="${INK}" stroke-width="3"/>
+    <text x="421" y="103" font-size="14" font-family="system-ui" font-weight="800" text-anchor="middle" fill="${RED}">BUS</text>`;
+  if(split){
+    const wide=(role==='insieme'),near=(role==='vicino');
+    return `<rect width="480" height="270" fill="${PAPER}"/>
+      <g data-view="insieme" opacity="${near?.28:1}">
+      <rect x="5" y="5" width="232" height="260" fill="#e7ded2" stroke="${wide?RED:INK}" stroke-width="${wide?7:3}"/>
+      <rect x="35" y="99" width="165" height="118" fill="#bcaea3" stroke="${INK}" stroke-width="3"/>
+      <path d="M27 98L50 75 50 98 77 75 77 98 104 75 104 98H205" fill="#ddd4c9" stroke="${INK}" stroke-width="3"/>
+      <rect x="88" y="150" width="58" height="67" fill="${INK}"/>
+      <text x="120" y="246" text-anchor="middle" font-family="system-ui" font-weight="800" font-size="13" fill="${INK}">IL QUARTIERE</text></g>
+      <g data-view="vicino" opacity="${wide?.28:1}">
+      <rect x="243" y="5" width="232" height="260" fill="#fff" stroke="${near?RED:INK}" stroke-width="${near?7:3}"/>
+      ${modernPerson(354,206,2,RED)}
+      <text x="359" y="246" text-anchor="middle" font-family="system-ui" font-weight="800" font-size="13" fill="${INK}">NADIA</text></g>`;
+  }
+  return factory;
+}
   function markup(art='troia', values={}, storyId='ettore', options={}) {
     const night=art==='notte';
     let inner;
-    if(art==='ruoli') inner=relations(options.role || null);
+    if(storyId==='penelope') inner=itacaDetail(art,values,options.role || null);
+    else if(storyId==='oggi') inner=modernScene(art,values,options.role || null);
+    else if(art==='ruoli') inner=relations(options.role || null);
     else if(art==='famiglia') inner=household(false);
     else if(art==='elmo') inner=household(true);
     else if(art==='magazzino') inner=magazine(values);
