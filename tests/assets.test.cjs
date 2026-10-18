@@ -17,7 +17,7 @@ test('le rappresentazioni delle risorse cambiano davvero con le scelte',()=>{
   const high=drawings.markup('troia',{difesa:80,provviste:85,fiducia:80});
   const low=drawings.markup('troia',{difesa:20,provviste:10,fiducia:20});
   assert.notEqual(high,low);
-  assert.match(low,/stroke="#793e3e"/);
+  assert.match(low,/data-feature="cracks"/);
   const rich=drawings.markup('magazzino',{provviste:90});
   const poor=drawings.markup('magazzino',{provviste:10});
   assert.notEqual(rich,poor);
