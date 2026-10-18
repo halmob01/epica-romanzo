@@ -64,8 +64,8 @@
       prompt:'Che differenza c’è fra i due racconti?',
       options:[
         {id:'soggetti',text:'Il primo guarda il paese; il secondo segue Marta.'},
-        {id:'momenti',text:'Il primo spiega il passato; il secondo anticipa il futuro.'},
-        {id:'cause',text:'Il primo descrive la causa; il secondo descrive la decisione.'}
+        {id:'momenti',text:'Il primo descrive il passato; il secondo mostra il futuro.'},
+        {id:'cause',text:'Il primo mostra un problema; il secondo trova la soluzione.'}
       ],
       answer:'soggetti',
       why:'Il fatto collettivo è lo stesso, ma il racconto può inquadrarlo da lontano o attraverso l’esperienza particolare di Marta.'
@@ -76,9 +76,9 @@
       source:'Sintesi e trasferimento: epica e contemporaneità',
       prompt:'Quale conclusione regge meglio il confronto fra Ettore e una persona di oggi?',
       options:[
-        {id:'intreccio',text:'Anche oggi i fatti comuni entrano nelle scelte personali.'},
-        {id:'separazione',text:'Nell’epica gli affetti restano separati dal ruolo pubblico.'},
-        {id:'rappresentanza',text:'Oggi ogni persona rappresenta da sola tutta la comunità.'}
+        {id:'intreccio',text:'Anche oggi i fatti comuni orientano le scelte personali.'},
+        {id:'separazione',text:'Nell’epica sono le scelte private a determinare tutti i ruoli.'},
+        {id:'rappresentanza',text:'Nella vita moderna il futuro dipende solo dalle scelte personali.'}
       ],
       answer:'intreccio',
       why:'L’epica rende centrale il ruolo pubblico dell’eroe; oggi il racconto può seguire una vita particolare senza cancellare i fatti condivisi.'
@@ -193,7 +193,7 @@
   }
   function answered(q,a){
     if(q.type==='choice')return typeof a==='string';
-    if(q.type==='multi')return Array.isArray(a)&&a.length>0;
+    if(q.type==='multi')return Array.isArray(a)&&a.length===q.answer.length;
     if(q.type==='match')return q.pairs.every(p=>a&&a[p.id]);
     if(q.type==='order')return Array.isArray(a)&&a.length===q.cards.length;
     return true;
