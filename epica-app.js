@@ -151,7 +151,7 @@
       '<p>'+esc(story.id==='oggi'?'Questi numeri rappresentano solo la simulazione: non sono un voto e non descrivono dati reali.':'Questi numeri descrivono solo la simulazione. Non sono un voto e non cambiano il racconto di Omero.')+'</p>'+
       '<div class="ep-change-list">'+summary.values.map(x=>'<div class="ep-change"><span>'+esc(x.label)+'</span><b>'+x.before+' → '+x.after+'</b></div>').join('')+'</div>'+
       '<div class="note"><b>La domanda da ricordare</b><p>'+esc(story.question || (story.id==='ettore'?'Perché una decisione di Ettore riguarda anche Andromaca, Astianatte e gli abitanti di Troia?':'Perché una decisione di Achille riguarda anche tutti gli altri Greci?'))+'</p></div>'+
-      '<div class="row"><button class="btn" data-action="restart">Rigioca</button><button class="btn ghost" data-action="menu">Altre storie</button></div>';
+      '<div class="row"><button class="btn" data-action="restart">Rigioca</button><button class="btn ghost" data-action="menu">Altre storie</button>'+ (story.id==='oggi'?'<a class="btn" href="./verifica.html">Attività finale →</a>':'') +'</div>';
   }
 
   function renderPrologue() {
