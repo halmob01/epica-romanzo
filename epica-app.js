@@ -131,14 +131,28 @@
 
   function renderEnd() {
     const summary=engine.recap(story,session);
-    const choices=summary.decisions.filter(d=>d.changes.length>0).length;
-    return `<div class="eyebrow">Conclusione · ${esc(story.title)}</div><h1>Una vita, un mondo</h1>
-       <p class="ep-lead">${esc(summary.insight)}</p>
-       <h3>La tua simulazione</h3>
-       <p>Hai compiuto ${summary.decisions.length} scelte, di cui ${choices} hanno modificato le misure. I numeri descrivono <b>questa simulazione</b>, non il destino storico di Troia.</p>
-       <div class="ep-change-list">${summary.values.map(x=>`<div class="ep-change"><span>${esc(x.label)}</span><b>${x.before} → ${x.after}</b></div>`).join('')}</div>
-       <div class="note"><b>Domanda da portare in classe</b><p>Un gesto che sembra personale può rappresentare il destino di una comunità? Spiega usando una scena.</p></div>
-       <div class="row"><button class="btn" data-action="restart">Rigioca</button><button class="btn ghost" data-action="menu">Altre storie</button></div>`;
+    const episodes=summary.decisions.filter(d=>story.scenes.find(s=>s.id===d.sceneId)?.type==='decision');
+    const episodesHTML=episodes.map(d=>{
+      const scene=story.scenes.find(s=>s.id===d.sceneId);
+      const choice=scene?.choices.find(c=>c.id===d.choiceId);
+      const positive=d.changes.filter(x=>x.delta>0).map(x=>x.label+' +'+x.delta).join(', ');
+      const negative=d.changes.filter(x=>x.delta<0).map(x=>x.label+' '+x.delta).join(', ');
+      return '<div class="ep-episode"><strong>'+esc(scene.title)+'</strong>' +
+        '<span>Hai scelto: '+esc(choice?.label||'')+'</span>' +
+        (positive?'<small class="ep-up">Hai favorito: '+esc(positive)+'</small>':'')+
+        (negative?'<small class="ep-down">Il costo: '+esc(negative)+'</small>':'')+
+        '<small>'+esc(choice?.why||'')+'</small></div>';
+    }).join('');
+    return '<div class="eyebrow">Conclusione · '+esc(story.title)+'</div>'+
+      '<h1>Una vita, un mondo</h1>'+
+      '<p class="ep-lead">'+esc(summary.insight)+'</p>'+
+      '<h3>Le scelte che hai fatto</h3>'+
+      '<div class="ep-episode-list">'+episodesHTML+'</div>'+
+      '<h3>Le misure finali</h3>'+
+      '<p>Questi numeri descrivono solo la simulazione. Non sono un voto e non cambiano il racconto di Omero.</p>'+
+      '<div class="ep-change-list">'+summary.values.map(x=>'<div class="ep-change"><span>'+esc(x.label)+'</span><b>'+x.before+' → '+x.after+'</b></div>').join('')+'</div>'+
+      '<div class="note"><b>La domanda da ricordare</b><p>Perché una decisione di Ettore può riguardare tutta Troia? E perché una decisione di Achille può riguardare tutti i Greci?</p></div>'+
+      '<div class="row"><button class="btn" data-action="restart">Rigioca</button><button class="btn ghost" data-action="menu">Altre storie</button></div>';
   }
 
   function renderPrologue() {
