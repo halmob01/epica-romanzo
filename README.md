@@ -10,6 +10,15 @@ L'introduzione «Chi merita una storia?» è **già stata svolta**: non va ripet
 
 **Frase da saper spiegare:** «Ettore è padre, marito e difensore di Troia. Quando combatte, non difende solo se stesso: attraverso di lui è in gioco anche il destino della sua famiglia e della città».
 
+
+## Nuova direzione: storie a scelte con conseguenze
+
+Il formato approvato non è una sequenza di quiz: prima **card introduttive illustrate e animate** come nel prologo di sito-feudo; poi **simulazioni a scelte**, con indicatori che si modificano e spiegazioni dei costi per la comunità. **Ettore è la simulazione principale**, con mappa di Troia e indicatori Difesa / Provviste / Fiducia. Seguono storie diverse di Achille e Patroclo, Penelope e Ulisse; in conclusione una simulazione contemporanea sui destini collettivi e il confronto verso Mazzoni.
+
+Specifiche complete, turni, scelte, feedback e vincoli di fedeltà al testo: [docs/STORIE-E-SIMULAZIONE.md](docs/STORIE-E-SIMULAZIONE.md).
+
+**Nota interpretativa:** le scelte ipotetiche sono una simulazione dichiarata; l'incontro canonico di Ettore e Andromaca è raccontato come nell'Iliade, non riscritto dai punteggi.
+
 ## Priorità assoluta: Ettore
 
 Ettore deve essere il nucleo concettuale e interattivo dell'unità, non uno dei tanti quiz.
