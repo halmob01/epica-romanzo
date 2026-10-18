@@ -175,7 +175,12 @@
     const q=QUESTIONS.find(x=>x.id===qid);
     if(!q||q.type==='writing')throw Error('Domanda inesistente');
     const candidate=restore({...state,answers:{...state.answers,[qid]:value}});
-    if(!candidate||JSON.stringify(candidate.answers[qid])!==JSON.stringify(value))throw Error('Risposta non valida');
+    const equivalent=q.type==='match'
+      ? candidate&&value&&typeof value==='object'&&!Array.isArray(value)&&
+        Object.keys(value).every(key=>q.pairs.some(p=>p.id===key))&&
+        q.pairs.every(p=>(candidate.answers[qid][p.id]||'')===(value[p.id]||''))
+      : candidate&&JSON.stringify(candidate.answers[qid])===JSON.stringify(value);
+    if(!equivalent)throw Error('Risposta non valida');
     return candidate;
   }
   function move(state,direction){
