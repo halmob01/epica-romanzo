@@ -1,5 +1,24 @@
 # Epica e romanzo — dall'individuo alla comunità
 
+## Stato del prototipo (18 ottobre 2026)
+
+**Il motore nuovo funziona nel ramo `base-feudo`, non ancora unito a `main`.** Non è più la schermata del feudo: `index.html` presenta Ettore e Achille, con la grafica recuperata da `sito-feudo`.
+
+- `engine.js`: motore indipendente dal DOM, senza concetti feudali; scene narrative, scelte con variazioni 0–100, spiegazioni, salvataggi ricostruiti e riepilogo.
+- `storie.js`: **Ettore** (5 card introduttive, 3 turni, incontro con Andromaca/Astianatte, riflessione e conclusione) e **Achille** (storia più breve di controllo e didattica).
+- `epica-map.js`: illustrazioni SVG originali e mappa di Troia che cambia secondo Difesa, Provviste e Fiducia.
+- `epica-app.js`: collegamento browser, navigazione, salvataggio locale e feedback.
+- `stile.css` + `epica.css`: identità visiva del feudo, card di prologo, responsive.
+- `tests/*.test.cjs`: verifiche Node standard; `.github/workflows/engine-tests.yml` esegue test e controllo sintattico nella PR.
+- `legacy/feudo/`: copia archiviata dei vecchi moduli del feudo, **non caricati dalla nuova pagina**.
+
+**Per provarlo:** aprire `index.html` dal ramo o esporre i file con un server statico, per esempio `python3 -m http.server 8000`; selezionare Ettore o Achille, completare le card e verificare cambi di indicatori, riavvio e ripristino. Test automatici locali: `node --test tests/*.test.cjs` (Node 20+).
+
+**Limiti dichiarati:** simulatore di Ettore e storia breve di Achille implementati; Penelope/Ulisse e scenario contemporaneo restano da sviluppare. Il racconto è una rielaborazione didattica, le scelte sono controfattuali e gli indicatori non sono misure storiche né punteggi. **Non ancora collaudato su un telefono reale**; la PR resta in bozza.
+
+---
+
+
 Stato: **progetto didattico definito, applicazione da costruire**. Materiale di partenza: le 12 slide «L'epica — le vite che rappresentano un mondo» e il testo di lezione del docente.
 
 ## Obiettivo della prima unità
