@@ -102,6 +102,79 @@ async function today(page){
   assert.match(await page.locator('#panel').innerText(),/chiusura della fabbrica/);
   await shot(page,'08-oggi-finale');
 }
+async function finalAssessment(page){
+  await page.goto('http://127.0.0.1:4173/verifica.html');
+  assert.match(await page.locator('#vf-intro').innerText(),/UNA VITA, MOLTI DESTINI/);
+  await assertFits(page,'verifica intro');
+  await shot(page,'12-verifica-intro');
+  await page.locator('#vf-start').click();
+  assert.match(await page.locator('#vf-question').innerText(),/Un gesto, molte conseguenze/);
+  assert.equal(await page.locator('#vf-result').isVisible(),false,'nessun voto anticipato');
+  // Riordinamento: nessuna soluzione esposta in UI, la prova conosce solo gli ID.
+  const correct=['a','b','c','d'];
+  for(let i=0;i<correct.length;i++){
+    let cardIds=await page.locator('.vf-order-row [data-vf-move="-1"]').evaluateAll(nodes=>nodes.map(node=>node.dataset.vfCard));
+    while(cardIds.indexOf(correct[i])>i){
+      await page.locator('[data-vf-move="-1"][data-vf-card="'+correct[i]+'"]').click();
+      cardIds=await page.locator('.vf-order-row [data-vf-move="-1"]').evaluateAll(nodes=>nodes.map(node=>node.dataset.vfCard));
+    }
+  }
+  assert.equal(await page.locator('.vf-order-row').count(),4);
+  await page.reload();
+  assert.match(await page.locator('#vf-question').innerText(),/Un gesto, molte conseguenze/);
+  await page.locator('[data-vf-action="next"]').click();
+  await page.locator('[data-vf-match="achille"]').selectOption('greci');
+  await page.locator('[data-vf-match="penelope"]').selectOption('itaca');
+  await page.locator('[data-vf-match="ettore"]').selectOption('troia');
+  await page.locator('[data-vf-action="next"]').click();
+  await page.locator('[data-vf-choice="negozio"]').click();
+  assert.equal(await page.locator('[data-vf-choice="negozio"]').getAttribute('aria-pressed'),'true');
+  await page.locator('[data-vf-choice="tirocinio"]').click();
+  await page.locator('[data-vf-action="next"]').click();
+  await page.locator('[data-vf-choice="soggetti"]').click();
+  await page.locator('[data-vf-action="next"]').click();
+  await page.locator('[data-vf-choice="intreccio"]').click();
+  await page.locator('[data-vf-action="next"]').click();
+  assert.match(await page.locator('#vf-question').innerText(),/La tua conclusione/);
+  await assertFits(page,'verifica 390px');
+  await shot(page,'13-verifica-scrittura');
+  await page.locator('#vf-writing').fill('Ettore difende Troia e la sua famiglia. Marta risente della chiusura del ponte perché perde l’autobus.');
+  assert.equal(await page.locator('#vf-result').isVisible(),false);
+  await page.locator('[data-vf-action="finish"]').click();
+  assert.match(await page.locator('.vf-score').innerText(),/100/);
+  assert.match(await page.locator('#vf-result').innerText(),/non un voto scolastico/);
+  assert.equal(await page.locator('.vf-feedback').count(),5);
+  assert.match(await page.locator('#vf-result').innerText(),/Ettore difende Troia/);
+  await shot(page,'14-verifica-risultato');
+  await page.reload();
+  assert.match(await page.locator('.vf-score').innerText(),/100/);
+  await page.setViewportSize({width:320,height:700});
+  await assertFits(page,'verifica risultati 320px');
+  await page.locator('[data-vf-action="restart"]').click();
+  assert.match(await page.locator('#vf-question').innerText(),/Un gesto, molte conseguenze/);
+  await assertFits(page,'verifica prima domanda 320px');
+  await shot(page,'15-verifica-320');
+  await page.setViewportSize({width:390,height:844});
+  // Verifica le posizioni effettivamente disegnate: non basta esaminare il sorgente.
+  const positions=new Set();
+  for(let seed=0;seed<12;seed++){
+    await page.evaluate(seed=>{
+      const key='epica-romanzo-verifica-finale-v1';
+      const current=JSON.parse(localStorage.getItem(key));
+      current.seed=seed;current.index=3;current.submitted=false;current.answers={};
+      localStorage.setItem(key,JSON.stringify(current));
+    },seed);
+    await page.reload();
+    const shown=await page.locator('.vf-option').evaluateAll(nodes=>nodes.map(n=>n.dataset.vfChoice));
+    if(seed===0){
+      await page.reload();
+      const again=await page.locator('.vf-option').evaluateAll(nodes=>nodes.map(n=>n.dataset.vfChoice));
+      assert.deepEqual(shown,again,'posizione stabile al nuovo render');
+    }
+    positions.add(shown.indexOf('soggetti'));
+  }
+  assert.ok(positions.size>=2,'la corretta non cambia posizione a video');
+}
 (async()=>{
   await new Promise(resolve=>server.listen(4173,'127.0.0.1',resolve));
   let browser;
@@ -109,7 +182,7 @@ async function today(page){
     browser=await chromium.launch({executablePath:process.env.CHROME_BIN,headless:true,args:['--no-sandbox']});
     const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});
     const errors=[];page.on('pageerror',err=>errors.push(err.message));
-    await hector(page);await achilles(page);await odyssey(page);await today(page);
+    await hector(page);await achilles(page);await odyssey(page);await today(page);await finalAssessment(page);
     assert.deepEqual(errors,[],'errori JavaScript dal browser');
     await page.setViewportSize({width:1280,height:800});
     await page.goto('http://127.0.0.1:4173/');
@@ -121,6 +194,6 @@ async function today(page){
     await start(page,'oggi');
     await assertFits(page,'card strette 320px');
     await shot(page,'11-telefono-stretto');
-    console.log('Chromium smoke: 4 storie complete, 320/390px e desktop, 11 anteprime.');
+    console.log('Chromium smoke: 4 storie, verifica finale su 100, 320/390px e desktop, 15 anteprime.');
   } finally {if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -35,6 +35,18 @@ Documenti di approfondimento: [Review Ettore](docs/ETTORE-REVIEW.md), [Destini g
 
 ---
 
+## Attività conclusiva: «Una vita, molti destini»
+
+Dopo i quattro capitoli è disponibile [l'attività finale](verifica.html), basata sulla skill didattica fornita dal docente. Sono **cinque esercizi autocorretti** con tipi diversi (ordinamento, associazione, due conseguenze, due confronti ragionati) e una **breve riflessione scritta non autocorretta**. Il punteggio 0–100 compare **solo alla fine** e non rappresenta un voto scolastico.
+
+La verifica usa una situazione nuova (chiusura di un ponte e conseguenze per Marta e il paese) per controllare il trasferimento del concetto: individui e comunità sono legati sia nell'epica sia nella contemporaneità, pur cambiando il modo di raccontare le vite. Non ripete le domande già risolte nei capitoli.
+
+Componenti tecnici separati: `finale.js` (dati, regole e correzione), `verifica-app.js` (interfaccia e ripristino), `verifica.html` e `verifica.css` (pagina nello stile del feudo). Il motore delle quattro storie resta invariato.
+
+[Guida docente, soluzioni e audit didattico](docs/VERIFICA-FINALE.md). Sono presenti test Node e controlli browser su schermi mobili; la prova con studenti e la revisione linguistica del docente restano necessarie.
+
+---
+
 ## Obiettivo della prima unità
 
 Capire che nell'epica la vicenda di un individuo non è soltanto privata: i suoi gesti incarnano ruoli, valori e conflitti della comunità. Preparare il successivo confronto con la centralità della vita particolare nel romanzo moderno e con la filosofia implicita del romanzo studiata attraverso Guido Mazzoni.

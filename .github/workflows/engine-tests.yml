@@ -6,6 +6,10 @@ on:
       - 'storie.js'
       - 'epica-map.js'
       - 'epica-app.js'
+      - 'finale.js'
+      - 'verifica-app.js'
+      - 'verifica.html'
+      - 'verifica.css'
       - 'tests/**'
       - '.github/workflows/engine-tests.yml'
   push:
@@ -16,6 +20,10 @@ on:
       - 'storie.js'
       - 'epica-map.js'
       - 'epica-app.js'
+      - 'finale.js'
+      - 'verifica-app.js'
+      - 'verifica.html'
+      - 'verifica.css'
       - 'tests/**'
       - '.github/workflows/engine-tests.yml'
 jobs:
@@ -33,5 +41,7 @@ jobs:
           node --check storie.js
           node --check epica-map.js
           node --check epica-app.js
+          node --check finale.js
+          node --check verifica-app.js
       - name: Test stories and engine
         run: node --test tests/*.test.cjs
