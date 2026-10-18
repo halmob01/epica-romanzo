@@ -12,6 +12,23 @@
   let previewIndex = null;
   let roleSelection = null;
   let roleSeen = new Set();
+  let history = [];
+  const HISTORY_STORAGE = 'epica-romanzo-history-v1';
+  function remember() {
+    if (!session || previewIndex!==null) return;
+    history.push({session:JSON.parse(JSON.stringify(session)),roleSelection,roleSeen:[...roleSeen]});
+    if(history.length>80)history.shift();
+  }
+  function back() {
+    if(previewIndex!==null){previewIndex=Math.max(0,previewIndex-1);render();return;}
+    if(!history.length)return;
+    const prior=history.pop();
+    session=engine.restore(story,prior.session);
+    if(!session)return;
+    roleSelection=prior.roleSelection;
+    roleSeen=new Set(prior.roleSeen);
+    save();render();
+  }
   function panelsFor(scene) { return scene.panels || []; }
   function rolePanel(scene) {
     const panels=panelsFor(scene);
@@ -26,7 +43,7 @@
   }
 
   function save() {
-    try { localStorage.setItem(STORAGE, JSON.stringify(session)); } catch (_) {}
+    try { localStorage.setItem(STORAGE, JSON.stringify(session)); localStorage.setItem(HISTORY_STORAGE,JSON.stringify({storyId:story?.id,history})); } catch (_) {}
   }
   function load() {
     try {
@@ -62,6 +79,7 @@
     if (!Object.prototype.hasOwnProperty.call(stories,id)) return;
     story=engine.validateStory(stories[id]);
     session=engine.newSession(story);
+    history=[];
     previewIndex=null; roleSelection=null; roleSeen=new Set();
     save();
     render();
@@ -72,6 +90,7 @@
     if(!saved) return showLanding();
     story=saved.story;
     session=saved.session;
+    try {const h=JSON.parse(localStorage.getItem(HISTORY_STORAGE));history=h?.storyId===story.id&&Array.isArray(h.history)?h.history.filter(x=>x&&x.session&&x.session.storyId===story.id).slice(-80):[];}catch(_){history=[];}
     previewIndex=null; roleSelection=null; roleSeen=new Set();
     render();
   }
@@ -105,14 +124,14 @@
       <div class="ep-choices">${scene.choices.map((ch,i)=>`<button class="opt ep-choice" data-choice="${esc(ch.id)}">
         <span class="k">${String.fromCharCode(65+i)}</span><span>${esc(ch.label)}</span></button>`).join('')}</div>
       <div class="ep-help">Non esiste una scelta che protegga tutto. Osserva chi beneficia della decisione e chi ne subisce il costo.</div>
-      ${story.id==='ettore'?'<button class="btn ghost ep-small" data-action="replay">Rivedi la storia iniziale</button>':''}`;
+      <div class="row">${history.length?'<button class="btn ghost ep-small" data-action="back">← Indietro</button>':''}${story.id==='ettore'?'<button class="btn ghost ep-small" data-action="replay">Rivedi la storia iniziale</button>':''}</div>`;
   }
 
   function renderReflection(scene) {
     return `<div class="eyebrow">Comprensione · senza punteggio</div>
       <h1>${esc(scene.title)}</h1>
       <p class="ep-lead">${esc(scene.text)}</p>
-      <div class="ep-choices">${scene.choices.map((ch,i)=>`<button class="opt ep-choice" data-choice="${esc(ch.id)}"><span class="k">${String.fromCharCode(65+i)}</span><span>${esc(ch.label)}</span></button>`).join('')}</div>`;
+      <div class="ep-choices">${scene.choices.map((ch,i)=>`<button class="opt ep-choice" data-choice="${esc(ch.id)}"><span class="k">${String.fromCharCode(65+i)}</span><span>${esc(ch.label)}</span></button>`).join('')}</div>${history.length?'<button class="btn ghost ep-small" data-action="back">← Indietro</button>':''}`;
   }
 
   function renderOutcome() {
@@ -125,7 +144,7 @@
       ${last.changes.length?`<div class="ep-change-list">${last.changes.map(ch=>`<div class="ep-change"><span>${esc(ch.label)}</span><b class="${ch.delta>0?'ep-up':'ep-down'}">${ch.delta>0?'+':''}${ch.delta}</b></div>`).join('')}</div>`:''}
       ${last.afterText?`<p class="ep-after">${esc(last.afterText)}</p>`:''}
       <div class="note"><b>Perché conta</b><p>${esc(last.why)}</p></div>
-      <button class="btn" data-action="next">Continua →</button>`;
+      <div class="row"><button class="btn ghost" data-action="back">← Indietro</button><button class="btn" data-action="next">Continua →</button></div>`;
   }
 
   function renderEnd() {
@@ -151,7 +170,7 @@
       '<p>'+esc(story.id==='oggi'?'Questi numeri rappresentano solo la simulazione: non sono un voto e non descrivono dati reali.':'Questi numeri descrivono solo la simulazione. Non sono un voto e non cambiano il racconto di Omero.')+'</p>'+
       '<div class="ep-change-list">'+summary.values.map(x=>'<div class="ep-change"><span>'+esc(x.label)+'</span><b>'+x.before+' → '+x.after+'</b></div>').join('')+'</div>'+
       '<div class="note"><b>La domanda da ricordare</b><p>'+esc(story.question || (story.id==='ettore'?'Perché una decisione di Ettore riguarda anche Andromaca, Astianatte e gli abitanti di Troia?':'Perché una decisione di Achille riguarda anche tutti gli altri Greci?'))+'</p></div>'+
-      '<div class="row"><button class="btn" data-action="restart">Rigioca</button><button class="btn ghost" data-action="menu">Altre storie</button>'+ (story.id==='oggi'?'<a class="btn" href="./verifica.html">Attività finale →</a>':'') +'</div>';
+      '<div class="row"><button class="btn ghost" data-action="back">← Indietro</button><button class="btn" data-action="restart">Rigioca</button><button class="btn ghost" data-action="menu">Altre storie</button>'+ (story.id==='oggi'?'<a class="btn" href="./verifica.html">Attività finale →</a>':'') +'</div>';
   }
 
   function renderPrologue() {
@@ -172,7 +191,7 @@
         <p class="pro-text">${esc(scene.text)}</p>
         ${isRoleScene?rolePanel(scene):''}
         <div class="pro-dots">${story.scenes.map((_,i)=>`<i class="${i<index?'done':i===index?'now':''}"></i>`).join('')}</div>
-        <div class="row"><button class="btn" data-action="${isPreview?(endPreview?'close-preview':'preview-next'):'next'}" ${isRoleScene && roleSeen.size<panelsCount?'disabled aria-disabled="true"':''}>${isPreview&&endPreview?'Torna alla scelta':'Avanti →'}</button>
+        <div class="row">${(isPreview?previewIndex>0:history.length>0)?'<button class="btn ghost" data-action="back">← Indietro</button>':''}<button class="btn" data-action="${isPreview?(endPreview?'close-preview':'preview-next'):'next'}" ${isRoleScene && roleSeen.size<panelsCount?'disabled aria-disabled="true"':''}>${isPreview&&endPreview?'Torna alla scelta':'Avanti →'}</button>
           ${canSkip?'<button class="btn ghost" data-action="skip">Salta il prologo</button>':''}
           ${isPreview?'<button class="btn ghost" data-action="close-preview">Chiudi il ripasso</button>':''}
         </div>
@@ -208,11 +227,12 @@
     if(!session || previewIndex !== null) return;
     const current=engine.currentScene(story,session);
     if (['roles','views'].includes(current?.interactive) && roleSeen.size < panelsFor(current).length) return;
-    try { session=engine.advance(story,session);roleSelection=null;roleSeen=new Set();save();render(); }
+    try { remember();session=engine.advance(story,session);roleSelection=null;roleSeen=new Set();save();render(); }
     catch (error) { console.warn(error); }
   }
   function skip() {
     if(!session || session.phase!=='scene'|| story.id!=='ettore'||session.index>=5) return;
+    remember();
     while(session.index<5 && session.phase==='scene' && engine.currentScene(story,session).type==='narrative'){
       session=engine.advance(story,session);
     }
@@ -232,7 +252,7 @@
     }
     const choice=event.target.closest('[data-choice]');
     if(choice && story && session && session.phase==='scene' && previewIndex===null) {
-      try {session=engine.select(story,session,choice.dataset.choice);save();render();} catch(error){console.warn(error);} return;
+      try {remember();session=engine.select(story,session,choice.dataset.choice);save();render();} catch(error){console.warn(error);} return;
     }
     const b=event.target.closest('[data-action]');
     if(!b)return;
@@ -240,6 +260,7 @@
       case 'start':begin(b.dataset.story);break;
       case 'continue':resume();break;
       case 'next':next();break;
+      case 'back':back();break;
       case 'skip':skip();break;
       case 'menu':showLanding();break;
       case 'restart':begin(story.id);break;
