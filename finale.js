@@ -18,7 +18,7 @@
         {id:'a',text:'Il fiume sale e minaccia il ponte.'},
         {id:'b',text:'La guardiana decide di chiudere il passaggio.'},
         {id:'c',text:'I mercanti non riescono a raggiungere il mercato.'},
-        {id:'d',text:'Gli abitanti cercano insieme un’altra strada.'}
+        {id:'d',text:'I negozianti restano senza merci e cercano un altro percorso.'}
       ],
       answer:['a','b','c','d'],
       why:'La minaccia provoca una scelta personale; da quella scelta nascono conseguenze per gli scambi e per gli abitanti.'
