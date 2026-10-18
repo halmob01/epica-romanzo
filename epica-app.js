@@ -38,7 +38,7 @@
       '<strong>'+esc(x.label||x.title)+'</strong><small>'+esc(x.name)+'</small>' +
       (roleSeen.has(x.id)?'<span class="ep-visited" aria-label="esplorato">✓</span>':'')+'</button>').join('') +
       '</div><div class="ep-role-explanation" role="status">'+
-      (chosen?'<strong>'+esc(chosen.name)+'</strong><p>'+esc(chosen.text)+'</p>':'<p>Seleziona le diverse prospettive e scopri che cosa cambia.</p>')+
+      (chosen?'<strong>'+esc(chosen.name)+'</strong>'+((scene.id==='distinzioni'&&chosen.text.includes(' VITE PARTICOLARI:'))?'<div class="ep-compare">'+chosen.text.split(' VITE PARTICOLARI:').map((part,i)=>'<div class="ep-compare-side"><span class="ep-compare-label">'+(i===0?'EPICA':'VITE PARTICOLARI')+'</span><p>'+esc(i===0?part.replace(/^EPICA:\\s*/,''):part)+'</p></div>').join('')+'</div>':'<p>'+esc(chosen.text)+'</p>'):'<p>Seleziona le diverse prospettive e scopri che cosa cambia.</p>')+
       '</div><p class="ep-roles-progress">'+roleSeen.size+'/'+panels.length+' '+(scene.interactive==='roles'?'legami esplorati. ':'prospettive esplorate. ')+(roleSeen.size===panels.length?'Ora puoi proseguire.':'Esplorale tutte per continuare.')+'</p>';
   }
 
