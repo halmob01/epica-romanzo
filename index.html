@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Epica — Le vite che rappresentano un mondo</title>
+  <meta name="description" content="Storie interattive sull'epica: scelte, destini personali e comunità.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Public+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="stile.css">
+  <link rel="stylesheet" href="epica.css">
+</head>
+<body>
+  <section id="landing" class="ep-landing" aria-label="Scegli una storia">
+    <div class="ep-mast">
+      <div class="ep-brand">EPICA / ROMANZO</div>
+      <span class="ep-kicker">Letteratura · Percorso interattivo</span>
+    </div>
+    <div>
+      <div class="ep-kicker">Lezione 01 · Il mondo degli eroi</div>
+      <h1 class="ep-display">LE VITE CHE RAPPRESENTANO UN MONDO</h1>
+    </div>
+    <p class="ep-deck">Una decisione sembra personale. Ma può cambiare il destino di una città, una famiglia o un esercito? Scoprilo nelle storie degli eroi antichi.</p>
+    <button id="continue" class="btn ghost" data-action="continue" hidden>Continua la tua storia</button>
+    <div class="ep-story-grid">
+      <article class="ep-story-card">
+        <div class="ep-cover" data-cover="ettore"></div>
+        <div class="ep-story-body">
+          <span class="ep-kicker">01 · Simulazione principale</span>
+          <h2>ETTORE</h2>
+          <p>Una città sotto assedio. Ogni tua scelta cambia le difese, il cibo e la fiducia degli abitanti. Poi incontrerai Andromaca e Astianatte.</p>
+          <button class="btn" data-action="start" data-story="ettore">Entra a Troia →</button>
+        </div>
+      </article>
+      <article class="ep-story-card">
+        <div class="ep-cover" data-cover="achille"></div>
+        <div class="ep-story-body">
+          <span class="ep-kicker">02 · Storia breve</span>
+          <h2>ACHILLE</h2>
+          <p>Un'offesa personale, un esercito in difficoltà. Immagina una scelta e scopri come il destino dei compagni si lega a quello di Achille.</p>
+          <button class="btn" data-action="start" data-story="achille">Entra nel racconto →</button>
+        </div>
+      </article>
+    </div>
+    <p class="ep-story-note">Le decisioni alternative sono simulazioni didattiche, non episodi dell'Iliade. Le vicende narrate come fatti del poema sono riconoscibili nel percorso.</p>
+  </section>
+
+  <main class="app" id="app" hidden>
+    <header class="bar">
+      <div class="ep-app-title">
+        <small id="headline">Le vite che rappresentano un mondo</small>
+        <b id="storyName">ETTORE</b>
+      </div>
+      <div class="bar-r">
+        <button class="pill" data-action="menu">← Storie</button>
+      </div>
+    </header>
+    <section class="stage ep-stage" aria-label="Simulazione narrativa">
+      <div class="left">
+        <div class="mapwrap">
+          <div class="ep-map" id="map" aria-live="off"></div>
+          <div class="chapter-tag" id="chapterTag">Simulazione</div>
+          <div class="turn-tag" id="turnTag">1/1</div>
+        </div>
+        <div class="ep-hud" id="hud" aria-label="Indicatori della storia"></div>
+        <div class="ep-progress" id="progress" aria-label="Progresso del percorso"></div>
+        <p class="ep-notice">Le misure servono a mostrare le conseguenze delle scelte; non sono dati storici e non sono un voto.</p>
+      </div>
+      <section class="panel ep-panel" id="panel" aria-label="Scena e decisione"></section>
+    </section>
+  </main>
+  <div id="prologue" hidden role="dialog" aria-label="Racconto illustrato" aria-modal="true"></div>
+
+  <script src="engine.js"></script>
+  <script src="storie.js"></script>
+  <script src="epica-map.js"></script>
+  <script src="epica-app.js"></script>
+</body>
+</html>
