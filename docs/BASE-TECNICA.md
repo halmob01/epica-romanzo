@@ -1,39 +1,49 @@
-# Base tecnica recuperata da sito-game-template1
+# Base tecnica riutilizzata dal feudo
 
-Stato: **copia tecnica da adattare, non app su Ettore e non materiale da distribuire alla classe**.
+Stato aggiornato: **18 ottobre 2026**. L'importazione originale è stata completata e **rifattorizzata**.
 
-Questa base proviene da [sito-game-template1](https://github.com/halmob01/sito-game-template1), una versione modulare di [sito-feudo](https://github.com/halmob01/sito-feudo). L'operazione avviene sul ramo `base-feudo` di `epica-romanzo`, senza sostituire `main`.
+La fonte è [sito-game-template1](https://github.com/halmob01/sito-game-template1), versione modulare del progetto [sito-feudo](https://github.com/halmob01/sito-feudo).
 
-## Cosa è stato riutilizzato
+## Che cosa è stato copiato
 
-| File | Utilità | Cosa resta da cambiare |
+Dal progetto originale sono stati recuperati l'identità visiva (`stile.css`), il pattern di prologo SVG, la disposizione mappa/indicatori/pannello, i feedback delle scelte e l'organizzazione dei moduli. La vecchia logica è conservata a scopo di riferimento nella cartella `legacy/feudo/` del ramo `base-feudo`.
+
+I file archiviati (`motore.js`, `contenuti.js`, `mappa.js`, `prologo.js`, `interfaccia.js`, `i18n.js`, `comune.js`, `config.js`) **non vengono più caricati dalla pagina**. L'obiettivo del riuso è evitare di riscrivere da zero l'esperienza e il sistema visivo, non trascinare nel nuovo gioco dipendenze da castelli, granaio e feudalesimo.
+
+## Architettura attiva
+
+| File | Responsabilità | Dipende da |
 |---|---|---|
-| `index.html` | Impaginazione e ordine di caricamento | Titoli, accesso al percorso, punti e area docente |
-| `stile.css` | Grafica del feudo, Alfa Slab One, Public Sans, rosso, nero, card | Eventuali etichette o dimensioni specifiche delle nuove storie |
-| `prologo.js` | Motore delle card introduttive, scene SVG animate | **Illustrazioni e testi ancora romani**: sostituirli con Troia |
-| `interfaccia.js` | Panelli, bottoni, navigazione, feedback | Testi, fasi della simulazione e classifica specifici del feudo |
-| `mappa.js` | Tecniche canvas e animazioni della mappa | Nuova mappa di Troia; non usare castello medievale |
-| `motore.js` | Stato, turni, applicazione variazioni, riepilogo | Rimuovere regole legate a granaio e feudo; modellare Difesa, Provviste, Fiducia |
-| `contenuti.js` | Modello di dati con eventi e scelte | Tutti gli episodi del Medioevo vanno sostituiti |
-| `comune.js` | Utility e salvataggio in locale | Coordinate e stagioni specifiche del feudo |
-| `i18n.js` | Supporto arabo necessario al template | Traduzioni non pertinenti; rinviare i contenuti arabi per la prima unità |
-| `config.js` | Isolamento delle chiavi del sito | Chiavi già differenziate; area docente deliberatamente non configurata |
-| `.nojekyll` | Compatibilità con GitHub Pages | Nessun cambiamento |
+| `engine.js` | Valida contenuti, inizializza sessioni, applica effetti, avanza nelle scene, ricostruisce i salvataggi, genera un riepilogo | Nessuna dipendenza dal browser o dalla storia |
+| `storie.js` | Dati narrativi e scelte di Ettore e Achille | Nessuna funzione di motore |
+| `epica-map.js` | Disegna scene SVG e aggiornamenti visivi basati sugli indicatori | Nessuna funzione di motore |
+| `epica-app.js` | Collega motore, storie e disegni a DOM, pulsanti e localStorage | Tre moduli precedenti |
+| `index.html` | Struttura della pagina e ordine di caricamento | File CSS e JS |
+| `stile.css`, `epica.css` | Visual design identico nello spirito al feudo, layout responsive | Browser |
+| `tests/*.test.cjs` | Prove automatiche, anche per salvataggi contraffatti e indicatori al limite | Node 20+ |
 
-La copia conserva la giocabilità del **vecchio feudo** come riferimento, non va scambiata per una versione del simulatore di Troia. Il banner in testa alla pagina lo dichiara esplicitamente.
+Il motore è costruito attorno a:
+- `story.stats`: ID, etichetta e valore iniziale 0–100.
+- `story.scenes`: `narrative`, `decision` e `reflection`.
+- `choices[].effects`: variazioni numeriche per ciascun indicatore.
+- `choices[].feedback` e `choices[].why`: conseguenza della decisione e sua interpretazione.
+- `scene.afterEffects`: costo condiviso dopo una scelta, per esempio l'assedio che consuma risorse.
+- `session`: stato della partita, indice e fase, decisioni, indicatori. La funzione `restore` verifica il salvataggio rigiocando la progressione, invece di fidarsi dei numeri archiviati.
 
-## Vincoli e scelte
+Il motore non attribuisce un «voto» ai risultati della città e non ammette due scelte nello stesso turno.
 
-- Nessuna nuova credenziale: area docente disattivata/non configurata (`PW_HASH` non corrisponde al template); Google Sheet non collegato.
-- Chiavi `KEY`, `LANG_KEY`, `DOC_KEY` e `SALT` specifiche di `epica-romanzo`, per non sovrascrivere il salvataggio di `sito-feudo` sugli stessi domini GitHub Pages.
-- La copia costituisce un punto di partenza tecnico. I contenuti canonici di Omero saranno differenziati dai bivi controfattuali.
-- Il documento guida della nuova applicazione resta [STORIE-E-SIMULAZIONE.md](STORIE-E-SIMULAZIONE.md): Ettore come esperienza centrale; poi Achille/Patroclo, Penelope/Ulisse e un destino contemporaneo.
-- Prima di pubblicare, separare e testare il nuovo motore, le scene, il reset, le conseguenze e il comportamento su mobile.
+## Distinzione fra Omero e ipotesi
 
-## Prossimo lavoro
+Le card raccontano episodi dell'Iliade in una semplificazione per studenti principianti. I tre turni di governo della città sono **esercizi ipotetici**, con valori arbitrari a scopo didattico; non attribuirli a Omero. Nell'incontro con Andromaca e Astianatte il racconto torna alla vicenda omerica e non permette di cambiare il destino canonico attraverso le misure.
 
-1. Riutilizzare lo stile delle card di `prologo.js`, sostituendo le scene con 5 SVG narrativi su Troia.
-2. Riutilizzare la shell di `index.html`, gli indicatori e la gestione delle scelte, creando la nuova mappa di Troia.
-3. Costruire 3 turni di scelte di Ettore: provviste, mura, famiglie; mostrare la variazione degli indicatori e spiegare il costo della decisione.
-4. Narrare l'incontro canonico con Andromaca e Astianatte, senza alterarne arbitrariamente l'esito attraverso il punteggio.
-5. Eseguire le prove didattiche e tecniche; solo allora unire i file adatti alla pubblicazione.
+## Verifiche e limiti
+
+Verifiche automatiche Node: `node --test tests/*.test.cjs`; GitHub Actions si avvia nel ramo e nella PR. Ci sono controlli su progressione, effetti, limiti, ripristino, struttura file, qualità narrativa di base e SVG.
+
+**Da fare prima dell'unione a main e dell'uso con studenti**:
+1. Prova manuale completa su desktop e su un telefono reale, sia Ettore sia Achille.
+2. Controllo leggibilità e navigazione delle card e delle conseguenze, incluse animazioni ridotte.
+3. Revisione linguistico-storica del testo della lezione.
+4. In seguito aggiungere Penelope/Ulisse, quindi il capitolo moderno sul modo di raccontare i destini generali.
+
+Il vecchio motore del feudo **non va reimportato nella radice**: i nuovi argomenti devono essere implementati soltanto come dati di storia e, quando necessario, SVG specifici.
