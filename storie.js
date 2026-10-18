@@ -297,6 +297,40 @@
           {id:'protagonista',label:'Il secondo segue pensieri e possibilità di una persona comune.',feedback:'Esatto. La crisi è collettiva, ma la raccontiamo attraverso i pensieri e il futuro incerto di Nadia.',why:'Il romanzo moderno può dare valore narrativo alla vita particolare senza cancellare il mondo sociale.',correct:true},
           {id:'eroe',label:'Nel secondo Nadia diventa un’eroina che rappresenta tutta la città.',feedback:'Nadia non incarna da sola un valore comune come Ettore: affronta un problema sociale attraverso una storia singolare.',why:'La differenza riguarda lo sguardo narrativo, non l’esistenza o meno di un destino comune.',correct:false}
         ]},
+      {id:'due-vite',type:'narrative',title:'Due vite, due modi di raccontare',
+        text:'Tocca le tre domande. Non stiamo confrontando una persona senza sentimenti e una con sentimenti: osserviamo quale aspetto della vita diventa il centro del racconto.',
+        art:'due-sguardi',historical:false,interactive:'views',
+        panels:[
+          {id:'ruolo',label:'CHI SEI?',name:'Il ruolo e la persona',text:'Ettore è figlio, marito e padre, ma la sua storia è legata soprattutto alla difesa di Troia. Nadia è una tirocinante: la sua storia non deve rappresentare l’intero quartiere per meritare di essere narrata.'},
+          {id:'dovere',label:'CHE COSA DEVI FARE?',name:'Le attese degli altri',text:'Da Ettore ci si aspetta che combatta per la città. Nadia deve cercare un nuovo tirocinio, ma nessuno può stabilire in anticipo quale futuro debba scegliere.'},
+          {id:'desiderio',label:'CHE COSA DESIDERI?',name:'Gli affetti e i desideri',text:'Ettore ama la famiglia e teme di perderla: l’epica non cancella la sua interiorità. Nadia teme il futuro, desidera amicizie e lavoro: il racconto segue anche queste possibilità particolari.'}
+        ]},
+      {id:'vita-qualunque',type:'narrative',title:'Una giornata che merita una storia',
+        text:'Nadia ha trovato un tirocinio lontano. Domani deve prendere un autobus alle sei e mezza. Nessuna città dipende dalla sua puntualità. Eppure, per lei, questa mattina può cambiare tutto.',
+        art:'autobus',historical:false},
+      {id:'vita-qualunque-scelta',type:'reflection',title:'Perché raccontare Nadia?',
+        text:'Nadia non sta salvando una città. Perché la sua giornata può comunque essere al centro di una storia?',
+        art:'ragazza',choices:[
+          {id:'eroina',label:'Perché ogni persona comune è un eroe che salva la propria città.',feedback:'Nadia non deve diventare un’eroina per essere protagonista.',why:'Il valore narrativo di una vita non dipende dal rappresentare tutti.',correct:false},
+          {id:'singolare',label:'Perché anche paure, desideri e scelte di una persona qualunque possono essere raccontati.',feedback:'Esatto. Il suo futuro incerto merita attenzione anche senza un’impresa eroica.',why:'La narrazione può concentrarsi sulla singolarità di una vita.',correct:true},
+          {id:'scomparsa',label:'Perché il mondo esterno non influenza più le decisioni personali.',feedback:'La chiusura della fabbrica continua a condizionare le possibilità di Nadia.',why:'Il racconto personale non elimina i problemi comuni.',correct:false}
+        ]},
+      {id:'inquadratura',type:'narrative',title:'Cambia l’inquadratura',
+        text:'È sempre la stessa chiusura della fabbrica. Tocca entrambe le inquadrature e nota che cosa ciascuna mostra e che cosa lascia sullo sfondo.',
+        art:'due-sguardi',historical:false,interactive:'views',
+        panels:[
+          {id:'panorama',label:'IL QUARTIERE',name:'Vista d’insieme',text:'Centinaia di lavoratori perdono il posto. Negozi e famiglie devono adattarsi. Questo sguardo rende visibile un problema comune, ma non ci dice che cosa prova Nadia.'},
+          {id:'persona',label:'NADIA',name:'Primo piano',text:'Alle sei e venti Nadia aspetta l’autobus. Ha paura di non essere all’altezza del nuovo tirocinio. Questo sguardo mostra la sua esperienza, ma non racconta da solo tutto il quartiere.'}
+        ]},
+      {id:'distinzioni',type:'narrative',title:'Quattro distinzioni fondamentali',
+        text:'Apri tutte e quattro le coppie. Sono differenze di attenzione narrativa, non regole assolute: Ettore prova emozioni e Nadia resta parte della società.',
+        art:'due-sguardi',historical:false,interactive:'views',
+        panels:[
+          {id:'ruoli',label:'1 · PROTAGONISTA',name:'Chi viene raccontato?',text:'EPICA: il protagonista occupa un ruolo riconosciuto dalla comunità. VITE PARTICOLARI: anche una persona qualunque può diventare protagonista.'},
+          {id:'azioni',label:'2 · AZIONI',name:'Che cosa merita una storia?',text:'EPICA: le azioni coinvolgono direttamente il destino del gruppo. VITE PARTICOLARI: anche fatti quotidiani e privati possono essere materia narrativa.'},
+          {id:'valori',label:'3 · SIGNIFICATO',name:'Che cosa rende visibile il racconto?',text:'EPICA: la vicenda esprime valori e conflitti comuni. VITE PARTICOLARI: il racconto segue desideri, dubbi e possibilità di una vita singolare.'},
+          {id:'legami',label:'4 · LEGAMI',name:'L’individuo è solo?',text:'EPICA: gli affetti personali possono entrare in conflitto con il ruolo pubblico. VITE PARTICOLARI: la società continua a influenzare le scelte, anche quando non è al centro della narrazione.'}
+        ]},
       {id:'confronto-finale',type:'narrative',title:'Dall’epica al romanzo',
         text:'Ettore vive la difesa di Troia come parte del proprio ruolo. Nadia, invece, cerca una strada personale dentro un cambiamento che riguarda tutti. Il romanzo moderno può fare di questa vita comune e incerta il centro della storia.',
         art:'due-sguardi',historical:false},
