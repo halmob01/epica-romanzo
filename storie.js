@@ -210,7 +210,7 @@
     ]
   };
 
-  /* Scenario del presente: narrativa originale, non una parafrasi di Mazzoni.
+  /* Scenario del presente: narrativa originale per il confronto fra destini collettivi e personali.
    * Mostra sia il carattere sociale degli eventi sia la possibile centralità
    * del futuro, dell’incertezza e dello sguardo individuale. */
   const OGGI = {
@@ -297,11 +297,11 @@
           {id:'protagonista',label:'Il secondo segue pensieri e possibilità di una persona comune.',feedback:'Esatto. La crisi è collettiva, ma la raccontiamo attraverso i pensieri e il futuro incerto di Nadia.',why:'Il romanzo moderno può dare valore narrativo alla vita particolare senza cancellare il mondo sociale.',correct:true},
           {id:'eroe',label:'Nel secondo Nadia diventa un’eroina che rappresenta tutta la città.',feedback:'Nadia non incarna da sola un valore comune come Ettore: affronta un problema sociale attraverso una storia singolare.',why:'La differenza riguarda lo sguardo narrativo, non l’esistenza o meno di un destino comune.',correct:false}
         ]},
-      {id:'mazzoni',type:'narrative',title:'Dall’epica al romanzo',
+      {id:'confronto-finale',type:'narrative',title:'Dall’epica al romanzo',
         text:'Ettore vive la difesa di Troia come parte del proprio ruolo. Nadia, invece, cerca una strada personale dentro un cambiamento che riguarda tutti. Il romanzo moderno può fare di questa vita comune e incerta il centro della storia.',
         art:'due-sguardi',historical:false},
       {id:'finale-oggi',type:'narrative',title:'I destini non sono scomparsi',
-        text:'Anche oggi un evento collettivo cambia moltissime vite. Può però essere vissuto e raccontato attraverso il futuro, gli affetti, i desideri e le scelte di una singola persona. Questa è una porta d’ingresso alle idee di Guido Mazzoni.',
+        text:'Anche oggi un evento collettivo cambia moltissime vite. Può però essere vissuto e raccontato attraverso il futuro, gli affetti, i desideri e le scelte di una singola persona. Questo permette di confrontare modi diversi di raccontare una vita.',
         art:'quartiere',historical:false}
     ]
   };
