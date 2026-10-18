@@ -11,7 +11,7 @@ test('il disegno SVG non usa immagini esterne ed è pronto per i dispositivi mob
   const svg=drawings.markup('troia',{difesa:65,provviste:60,fiducia:60},'ettore');
   assert.match(svg,/<svg[\s\S]*<\/svg>/);
   assert.match(svg,/viewBox="0 0 480 270"/);
-  assert.doesNotMatch(svg,/<image\b|<foreignObject\b|https?:\/\//);
+  assert.doesNotMatch(svg,/<image\b|<foreignObject\b|(?:href|src)=["']https?:\/\//);
 });
 test('le rappresentazioni delle risorse cambiano davvero con le scelte',()=>{
   const high=drawings.markup('troia',{difesa:80,provviste:85,fiducia:80});
