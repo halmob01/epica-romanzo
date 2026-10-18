@@ -76,3 +76,28 @@ body { margin:0; min-height:100vh; }
   .pro-in,.pro-text {animation:none!important;opacity:1!important;}
   svg animate, svg animateTransform {display:none;}
 }
+
+/* Il nodo concettuale: Ettore = marito, padre e difensore insieme. */
+.ep-roles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.45rem; }
+.ep-role { position:relative; min-height:4.2rem; padding:.65rem .45rem; text-align:left; border:2px solid var(--ink); background:var(--white); cursor:pointer; display:flex; flex-direction:column; justify-content:center; gap:.25rem; transition:background .16s,border-color .16s; }
+.ep-role strong { font-size:clamp(.73rem,1.8vw,.85rem); font-weight:800; letter-spacing:.06em; }
+.ep-role small { font-size:clamp(.7rem,1.6vw,.81rem); color:var(--mute); font-weight:600; }
+.ep-role.selected { border-color:var(--red); background:var(--red-pale); }
+.ep-role:focus-visible { outline:3px solid var(--red); outline-offset:3px; }
+.ep-visited { position:absolute; top:.35rem; right:.4rem; color:#1f7a3a; font-weight:800; font-size:.85rem; }
+.ep-role-explanation { min-height:5rem; padding:.65rem .8rem; background:var(--soft); border-left:4px solid var(--red); font-size:.92rem; line-height:1.5; }
+.ep-role-explanation strong { font-weight:800; }
+.ep-role-explanation p { margin:.25rem 0 0; }
+.ep-roles-progress { margin:0; color:var(--mute); font-size:.78rem; font-weight:700; }
+.ep-episode-list { display:flex;flex-direction:column;gap:.5rem; }
+.ep-episode { display:flex; flex-direction:column; padding:.7rem .8rem; border-left:4px solid var(--red); background:var(--soft); gap:.2rem; }
+.ep-episode strong { font-weight:800; }
+.ep-episode span { font-size:.9rem; }
+.ep-episode small { color:var(--mute); font-size:.84rem; }
+@media (max-width:34rem) {
+  .ep-role { min-height:3.7rem; padding:.55rem .38rem; }
+  .ep-role strong { font-size:.69rem; letter-spacing:0; }
+  .ep-role small { font-size:.7rem; }
+  .ep-role-explanation { font-size:.88rem; }
+}
+@media (prefers-reduced-motion:reduce) { .ep-role { transition:none; } }
