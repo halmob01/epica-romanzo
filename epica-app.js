@@ -12,14 +12,7 @@
   let previewIndex = null;
   let roleSelection = null;
   let roleSeen = new Set();
-  const ROLES = [
-    { id:'marito', title:'MARITO', name:'Andromaca', text:'Andromaca teme di perdere Ettore. Il pericolo per Troia è anche un pericolo per la loro vita insieme.' },
-    { id:'padre', title:'PADRE', name:'Astianatte', text:'Astianatte potrebbe crescere senza padre. Difendere la città significa anche tentare di proteggere il futuro del figlio.' },
-    { id:'difensore', title:'DIFENSORE', name:'Troia', text:'Ettore difende anche le famiglie degli altri abitanti. Una sua decisione riguarda tutta la comunità.' }
-  ];
-  function panelsFor(scene) {
-    return scene.interactive === 'views' ? scene.panels : ROLES;
-  }
+  function panelsFor(scene) { return scene.panels || []; }
   function rolePanel(scene) {
     const panels=panelsFor(scene);
     const chosen=panels.find(x=>x.id===roleSelection);
