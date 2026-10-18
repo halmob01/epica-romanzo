@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Attività finale — Epica e romanzo</title>
+  <meta name="description" content="Verifica conclusiva: individuo, comunità e modi di raccontare.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Public+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="stile.css">
+  <link rel="stylesheet" href="epica.css">
+  <link rel="stylesheet" href="verifica.css">
+</head>
+<body>
+  <main class="vf-wrap" id="vf-root">
+    <header class="vf-header">
+      <a class="vf-brand" href="./index.html">EPICA / ROMANZO</a>
+      <a class="vf-back" href="./index.html">← Torna alle storie</a>
+    </header>
+    <section class="vf-intro" id="vf-intro">
+      <div class="ep-kicker">05 · Attività conclusiva</div>
+      <h1>UNA VITA, MOLTI DESTINI</h1>
+      <p>Hai incontrato Ettore, Achille, Penelope, Ulisse e Nadia. Ora affronta una vicenda nuova: un ponte che viene chiuso. Che cosa cambia per una persona? E per gli altri?</p>
+      <div class="vf-facts">
+        <span><b>5 esercizi</b> autocorretti</span>
+        <span><b>1 riflessione</b> scritta</span>
+        <span><b>15–20 minuti</b> indicativi</span>
+      </div>
+      <p class="vf-small">Vedrai i risultati alla fine. Il punteggio da 0 a 100 riguarda soltanto gli esercizi autocorretti; non è un voto scolastico. Puoi interrompere e riprendere su questo dispositivo.</p>
+      <button class="btn" id="vf-start" type="button">Inizia l’attività →</button>
+    </section>
+    <section class="vf-assessment" id="vf-assessment" hidden>
+      <div class="vf-meta"><span id="vf-counter">Attività 1 di 6</span><span id="vf-point-label">20 punti</span></div>
+      <div class="vf-progress" id="vf-progress" aria-label="Avanzamento"></div>
+      <div class="vf-question" id="vf-question" aria-live="polite"></div>
+      <div class="vf-actions">
+        <button class="btn ghost" data-vf-action="prev" id="vf-prev" type="button">← Indietro</button>
+        <button class="btn" data-vf-action="next" id="vf-next" type="button">Avanti →</button>
+        <button class="btn" data-vf-action="finish" id="vf-finish" type="button" hidden>Consegna e correggi</button>
+      </div>
+      <p class="vf-small" id="vf-hint">Puoi rivedere le risposte prima di consegnare.</p>
+    </section>
+    <section class="vf-result" id="vf-result" hidden aria-live="polite"></section>
+  </main>
+  <script src="finale.js"></script>
+  <script src="verifica-app.js"></script>
+</body>
+</html>
