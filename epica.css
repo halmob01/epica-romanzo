@@ -101,3 +101,8 @@ body { margin:0; min-height:100vh; }
   .ep-role-explanation { font-size:.88rem; }
 }
 @media (prefers-reduced-motion:reduce) { .ep-role { transition:none; } }
+
+/* Movimento minimo dei vessilli nelle scene, disattivato con preferenze di accessibilità. */
+.ep-svg-flag { transform-box:fill-box;transform-origin:100% 50%;animation:ep-banner 3.2s ease-in-out infinite; }
+@keyframes ep-banner { 0%,100% {transform:skewY(0deg) scaleX(1)} 50% {transform:skewY(-3deg) scaleX(.92)} }
+@media (prefers-reduced-motion:reduce) { .ep-svg-flag {animation:none} }
