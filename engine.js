@@ -29,6 +29,18 @@
       ids.add(scene.id);
       if (scene.type === 'narrative') {
         if (scene.choices !== undefined) fail('Una scena narrativa non può avere scelte');
+        if (scene.interactive !== undefined) {
+          if (!['roles','views'].includes(scene.interactive) ||
+              !Array.isArray(scene.panels) || scene.panels.length < 2 || scene.panels.length > 4)
+            fail('Pannelli della scena non validi');
+          const panelIds = new Set();
+          scene.panels.forEach(panel => {
+            if (!record(panel) || !isText(panel.id) || !isText(panel.label) ||
+                !isText(panel.name) || !isText(panel.text) || panelIds.has(panel.id))
+              fail('Contenuto di un pannello non valido');
+            panelIds.add(panel.id);
+          });
+        }
       } else if (scene.type === 'decision' || scene.type === 'reflection') {
         if (!Array.isArray(scene.choices) || scene.choices.length < 2) fail('Scelta con meno di due alternative');
         const choices = new Set();
