@@ -129,7 +129,8 @@
   /* Odissea: gli episodi indicati come storici derivano dal racconto omerico
    * semplificato; le scelte di gestione domestica sono esperimenti didattici. */
   const PENELOPE = {
-    id:'penelope', title:'PENELOPE E ULISSE', subtitle:'Difendere il posto di Itaca',
+    id:'penelope', title:'PENELOPE E ULISSE', subtitle:'Difendere il posto di Itaca', coverArt:'itaca',
+    question:'In che senso Penelope, Telemaco e Ulisse difendono un ordine che riguarda tutta Itaca?',
     source:'Odissea, vicenda di Penelope, Telemaco e ritorno di Ulisse (rielaborazione didattica)',
     insight:'Penelope difende la casa e il trono; Ulisse torna al suo posto di re, marito e padre. Anche le vicende domestiche fanno parte dell’ordine di Itaca.',
     stats:[
@@ -208,7 +209,8 @@
    * Mostra sia il carattere sociale degli eventi sia la possibile centralità
    * del futuro, dell’incertezza e dello sguardo individuale. */
   const OGGI = {
-    id:'oggi', title:'UNA VITA OGGI', subtitle:'Quando un paese cambia',
+    id:'oggi', title:'UNA VITA OGGI', subtitle:'Quando un paese cambia', coverArt:'fabbrica',
+    question:'Perché la storia del tirocinio di Nadia parla anche della chiusura della fabbrica e del futuro del quartiere?',
     source:'Racconto contemporaneo originale per la lezione, non tratto da un romanzo esistente',
     insight:'La crisi coinvolge tutto il quartiere, ma Nadia può vivere il fatto collettivo come una questione di scelte personali, legami e futuro. La narrazione può passare dallo sguardo sulla città a quello di una persona comune.',
     stats:[
